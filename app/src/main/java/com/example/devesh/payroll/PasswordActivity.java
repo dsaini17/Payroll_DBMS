@@ -76,6 +76,8 @@ public class PasswordActivity extends AppCompatActivity implements passwordDialo
 
         if(length==0){
             editor.putString("password","payroll");
+            editor.putInt("query",1);
+            Log.d("Prefs_Verify", String.valueOf(sharedPreferences.getInt("query",0)));
             editor.apply();
         }
     }

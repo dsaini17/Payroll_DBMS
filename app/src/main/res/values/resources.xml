@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="department_array">
+        <item>Legal</item>
+        <item>Public Relations</item>
+        <item>Marketing</item>
+        <item>Finance</item>
+        <item>Human Resource</item>
+        <item>Board</item>
+        <item>Logistics</item>
+    </string-array>
+</resources>

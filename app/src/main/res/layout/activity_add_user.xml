@@ -14,9 +14,72 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="20sp"
             android:hint="Name"
+            android:layout_marginTop="5sp"
             android:id="@+id/userName"
+            android:textColor="@color/colorBlack"
+            android:inputType="text"
             />
+
+        <EditText
+            android:layout_marginTop="5sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:hint="Address"
+            android:textColor="@color/colorBlack"
+            android:id="@+id/userAddress"
+            android:inputType="text"
+            />
+
+        <EditText
+            android:layout_marginTop="5sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:hint="E-mail Address"
+            android:textColor="@color/colorBlack"
+            android:id="@+id/userEmailAddress"
+            android:inputType="text"
+            />
+
+        <EditText
+            android:layout_marginTop="5sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:hint="Contact Number"
+            android:textColor="@color/colorBlack"
+            android:id="@+id/userContact"
+            android:inputType="numberDecimal"
+            />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/userDepartment"
+            android:layout_marginTop="5sp"
+            ></Spinner>
+
+        <EditText
+            android:layout_marginTop="5sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:hint="Salary"
+            android:textColor="@color/colorBlack"
+            android:id="@+id/userSalary"
+            android:inputType="numberDecimal"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADD"
+            android:id="@+id/userAddButton"
+            />
+
 
 
     </LinearLayout>
