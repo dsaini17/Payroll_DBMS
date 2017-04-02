@@ -1,6 +1,7 @@
 package com.example.devesh.payroll;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,15 +11,18 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.devesh.payroll.Dialogs.developerDialog;
 import com.example.devesh.payroll.Dialogs.passwordDialog;
 
 import java.util.Map;
@@ -30,7 +34,7 @@ public class PasswordActivity extends AppCompatActivity implements passwordDialo
 
     EditText passwordEditText;
     Button loginButton;
-    TextView passwordTextView;
+    TextView passwordTextView,developerTextView;
 
     String enteredPassword,originalPassword;
 
@@ -63,6 +67,7 @@ public class PasswordActivity extends AppCompatActivity implements passwordDialo
 
         passwordEditText = (EditText) findViewById(R.id.passwordEditText);
         passwordTextView = (TextView) findViewById(R.id.passwordTextView);
+        developerTextView = (TextView) findViewById(R.id.developerTextView);
         loginButton = (Button) findViewById(R.id.loginButton);
     }
 
@@ -111,11 +116,23 @@ public class PasswordActivity extends AppCompatActivity implements passwordDialo
                 createDialog();
             }
         });
+
+        developerTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDeveloperDialog();
+            }
+        });
     }
 
     public void createDialog(){
         passwordDialog dialog = new passwordDialog();
         dialog.show(getSupportFragmentManager(),"Password Dialog");
+    }
+
+    public void showDeveloperDialog(){
+        developerDialog dialog = new developerDialog();
+        dialog.show(getSupportFragmentManager(),"Developer Dialog");
     }
 
     @Override
