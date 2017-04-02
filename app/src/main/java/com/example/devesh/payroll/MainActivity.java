@@ -1,6 +1,7 @@
 package com.example.devesh.payroll;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG_EXPORT = "ExportFunction";
     SQLiteDatabase currDatabase;
-    Button addEmployeeButton;
+    Button addEmployeeButton,allEmployeeButton;
 
 
     @Override
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         currDatabase = MyDatabase.getReadable(getApplicationContext());
 
         addEmployeeButton = (Button) findViewById(R.id.addEmployeeButton);
+        allEmployeeButton = (Button) findViewById(R.id.allEmployeeButton);
     }
 
     public void setClickListeners(){
@@ -55,28 +57,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        allEmployeeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,AllUserActivity.class));
+            }
+        });
+
     }
-
-    public void Export() throws IOException {
-        File inFile = new File(Environment.getDataDirectory()+"/data/com.example.devesh.payroll/databases/"+ MyDatabase.DB_NAME);
-        Log.d(TAG_EXPORT,Environment.getDataDirectory()+"/data/com.example.devesh.payroll/databases/"+ MyDatabase.DB_NAME);
-        FileInputStream fileInputStream = new FileInputStream(inFile);
-
-        File outFile = new File(Environment.getExternalStorageDirectory()+"/"+MyDatabase.DB_NAME);
-        Log.d(TAG_EXPORT,Environment.getExternalStorageDirectory()+"/"+MyDatabase.DB_NAME);
-        FileOutputStream fileOutputStream = new FileOutputStream(outFile);
-
-        byte[] buffer = new byte[1024];
-        int length;
-
-        while ((length=fileInputStream.read(buffer))>0){
-            fileOutputStream.write(buffer,0,length);
-        }
-        fileOutputStream.flush();
-        fileOutputStream.close();
-        fileInputStream.close();
-    }
-
 
     @Override
     public void onBackPressed() {

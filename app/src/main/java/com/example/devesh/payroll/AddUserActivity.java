@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.devesh.payroll.Database.MyDatabase;
+import com.example.devesh.payroll.ExportClass.ExportDatabase;
 import com.example.devesh.payroll.Models.Department;
 import com.example.devesh.payroll.Tables.AttendanceTable;
 import com.example.devesh.payroll.Tables.DepartmentTable;
@@ -47,7 +48,7 @@ public class AddUserActivity extends AppCompatActivity {
     SQLiteDatabase database;
     ArrayList<Department> departmentArrayList;
     ArrayList<String> departmentNameList;
-
+    ArrayList<String> querySaveList;
     ArrayAdapter arrayAdapter;
 
     @Override
@@ -95,6 +96,7 @@ public class AddUserActivity extends AppCompatActivity {
         departmentName = (Spinner) findViewById(R.id.userDepartment);
         addUserButton = (Button) findViewById(userAddButton);
         spinnerPosition = 0;
+        querySaveList = new ArrayList<>();
 
         //departmentName = new Spinner(getApplicationContext());
 
@@ -108,7 +110,7 @@ public class AddUserActivity extends AppCompatActivity {
     public void perform_Updation(){
         String name = userName.getText().toString().trim();
         String address = userAddress.getText().toString().trim();
-        String email = userAddress.getText().toString().trim();
+        String email = userEmailAddress.getText().toString().trim();
         String department = departmentNameList.get(spinnerPosition);
         Integer contact = Integer.valueOf(userContact.getText().toString().trim());
         Integer salary = Integer.valueOf(userSalary.getText().toString().trim());
@@ -125,6 +127,7 @@ public class AddUserActivity extends AppCompatActivity {
 
         Log.d(TAG,employeeQuery);
         database.execSQL(employeeQuery);
+        querySaveList.add(employeeQuery);
 
         Cursor cursor = database.rawQuery("SELECT * FROM "+EmployeeTable.TABLE_NAME+";",null);
         cursor.move(cursor.getCount());
@@ -133,11 +136,6 @@ public class AddUserActivity extends AppCompatActivity {
         Integer employeeID = cursor.getInt(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.ID));
         Log.d(TAG,"ID is = "+cursor.getInt(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.ID)));
 
-        try {
-            Export();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         String salaryQuery = " INSERT INTO "+ SalaryTable.TABLE_NAME + " VALUES "
                 + " ( " + employeeID + " , "
@@ -146,6 +144,7 @@ public class AddUserActivity extends AppCompatActivity {
 
         Log.d(TAG,salaryQuery);
         database.execSQL(salaryQuery);
+        querySaveList.add(salaryQuery);
 
         Department currDepartment = departmentArrayList.get(spinnerPosition);
         String departmentQuery = " INSERT INTO "+ DepartmentTable.TABLE_NAME + " VALUES ( "
@@ -155,6 +154,7 @@ public class AddUserActivity extends AppCompatActivity {
 
         Log.d(TAG,departmentQuery);
         database.execSQL(departmentQuery);
+        querySaveList.add(departmentQuery);
 
         String taxQuery = " INSERT INTO "+ TaxTable.TABLE_NAME + " VALUES ( "
                 + employeeID + ","
@@ -162,6 +162,7 @@ public class AddUserActivity extends AppCompatActivity {
 
         Log.d(TAG,taxQuery);
         database.execSQL(taxQuery);
+        querySaveList.add(taxQuery);
 
         String attendanceQuery = " INSERT INTO "+ AttendanceTable.TABLE_NAME + " VALUES ( "
                 + employeeID + ","
@@ -170,15 +171,11 @@ public class AddUserActivity extends AppCompatActivity {
 
         Log.d(TAG,attendanceQuery);
         database.execSQL(attendanceQuery);
+        querySaveList.add(attendanceQuery);
 
         try {
-            createFile(employeeQuery,departmentQuery,taxQuery,attendanceQuery,salaryQuery);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            Export();
+            askToCreateFile(querySaveList);
+            ExportDatabase.Export();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -186,49 +183,10 @@ public class AddUserActivity extends AppCompatActivity {
         startActivity(new Intent(AddUserActivity.this,MainActivity.class));
     }
 
-    public void Export() throws IOException {
-        File inFile = new File(Environment.getDataDirectory()+"/data/com.example.devesh.payroll/databases/"+ MyDatabase.DB_NAME);
-        Log.d(TAG_EXPORT,Environment.getDataDirectory()+"/data/com.example.devesh.payroll/databases/"+ MyDatabase.DB_NAME);
-        FileInputStream fileInputStream = new FileInputStream(inFile);
-
-        File outFile = new File(Environment.getExternalStorageDirectory()+"/"+MyDatabase.DB_NAME);
-        Log.d(TAG_EXPORT,Environment.getExternalStorageDirectory()+"/"+MyDatabase.DB_NAME);
-        FileOutputStream fileOutputStream = new FileOutputStream(outFile);
-
-        byte[] buffer = new byte[1024];
-        int length;
-
-        while ((length=fileInputStream.read(buffer))>0){
-            fileOutputStream.write(buffer,0,length);
-        }
-        fileOutputStream.flush();
-        fileOutputStream.close();
-        fileInputStream.close();
-    }
-
-    public void createFile(String a,String b,String c,String d,String e) throws IOException {
-
+    public void askToCreateFile(ArrayList<String> sendData) throws IOException {
         Integer queryNumber = getPrefs();
         String fileName = "Query"+String.valueOf(queryNumber)+".txt";
-        File file = new File(Environment.getExternalStorageDirectory(),fileName);
-
-        if(!file.isFile()){
-            file.createNewFile();
-        }
-
-        FileOutputStream fileOutputStream = new FileOutputStream(file,true);
-        fileOutputStream.write(a.getBytes());
-        fileOutputStream.write(NEW_LINE.getBytes());
-        fileOutputStream.write(b.getBytes());
-        fileOutputStream.write(NEW_LINE.getBytes());
-        fileOutputStream.write(c.getBytes());
-        fileOutputStream.write(NEW_LINE.getBytes());
-        fileOutputStream.write(d.getBytes());
-        fileOutputStream.write(NEW_LINE.getBytes());
-        fileOutputStream.write(e.getBytes());
-        fileOutputStream.write(NEW_LINE.getBytes());
-
-
+        ExportDatabase.createFile(sendData,fileName);
     }
 
     public int getPrefs(){
@@ -238,10 +196,15 @@ public class AddUserActivity extends AppCompatActivity {
         Integer oldValue = sharedPreferences.getInt("query",0);
         editor.remove("query");
         editor.putInt("query",oldValue+1);
-        Log.d("Prefs", " old = "+oldValue + "new = "+sharedPreferences.getInt("query",-1));
+       // Log.d("Prefs", " old = "+oldValue + "new = "+sharedPreferences.getInt("query",-1));
         editor.apply();
 
         return oldValue;
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AddUserActivity.this,MainActivity.class));
+        finish();
+    }
 }

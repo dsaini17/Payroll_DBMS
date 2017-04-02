@@ -21,11 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".PasswordActivity" />
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".AddUserActivity"></activity>
-
+        <activity android:name=".MainActivity" />
+        <activity android:name=".AddUserActivity" />
+        <activity android:name=".AllUserActivity"></activity>
     </application>
 
 </manifest>
