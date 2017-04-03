@@ -24,6 +24,14 @@
             android:id="@+id/allEmployeeButton"
             />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="GIVE BONUS"
+            android:id="@+id/bonusButton"
+            />
+
     </LinearLayout>
 
 </ScrollView>

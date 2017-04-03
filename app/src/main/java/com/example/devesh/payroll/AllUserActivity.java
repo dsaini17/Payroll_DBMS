@@ -43,21 +43,38 @@ public class AllUserActivity extends AppCompatActivity {
 
         init();
 
-        String queryAll = " SELECT "+ EmployeeTable.TABLE_NAME+".* "+ DepartmentTable.TABLE_NAME+".* "+ SalaryTable.TABLE_NAME
-                +".* "+ TaxTable.TABLE_NAME +".* "+ " FROM " +EmployeeTable.TABLE_NAME +
+        String queryAll = " SELECT "+ EmployeeTable.TABLE_NAME+".* , "+ DepartmentTable.TABLE_NAME+"."+DepartmentTable.Columns.NAME+ " , "+ SalaryTable.TABLE_NAME
+                +"."+SalaryTable.Columns.SALARY + " , "+ TaxTable.TABLE_NAME +"."+TaxTable.Columns.TAX_COLLECTED+ " FROM " +EmployeeTable.TABLE_NAME +
                 " JOIN " + DepartmentTable.TABLE_NAME + " ON "+ EmployeeTable.TABLE_NAME+"."+EmployeeTable.Columns.ID + " = " + DepartmentTable.TABLE_NAME+"."+DepartmentTable.Columns.EMPLOYEE_ID +
         " JOIN " + SalaryTable.TABLE_NAME + " ON "+ EmployeeTable.TABLE_NAME+"."+EmployeeTable.Columns.ID + " = " + SalaryTable.TABLE_NAME+"."+SalaryTable.Columns.EMPLOYEE_ID +
         " JOIN " + TaxTable.TABLE_NAME + " ON "+ EmployeeTable.TABLE_NAME+"."+EmployeeTable.Columns.ID + " = " + TaxTable.TABLE_NAME+"."+TaxTable.Columns.EMPLOYEE_ID +" ;";
 
         Log.d(TAG,queryAll);
 
+        queryList.add(queryAll);
+
         database = MyDatabase.getReadable(getApplicationContext());
 
         Cursor cursor = database.rawQuery(queryAll,null);
+        Log.d(TAG,cursor.getCount()+" "+cursor.getColumnCount() + " "+ cursor.getColumnNames());
+        String[] column = cursor.getColumnNames();
 
-        if(cursor!=null){
-            do{
-                //String name = curs
+        for(int i=0;i<column.length;i++){
+            Log.d(TAG,column[i]);
+        }
+        if(cursor!=null&&cursor.moveToFirst()){
+                do{
+                String name = cursor.getString(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.NAME));
+                Integer id = cursor.getInt(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.ID));
+                String address = cursor.getString(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.ADDRESS));
+                String email = cursor.getString(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.EMAIL));
+                String department = cursor.getString(cursor.getColumnIndexOrThrow(DepartmentTable.Columns.NAME));
+                Integer contact = cursor.getInt(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.CONTACT));
+                Integer salary = cursor.getInt(cursor.getColumnIndexOrThrow(SalaryTable.Columns.SALARY));
+                Float tax = cursor.getFloat(cursor.getColumnIndexOrThrow(TaxTable.Columns.TAX_COLLECTED));
+
+                dataList.add(new Employee(id,name,address,contact,department,email,salary,tax));
+                customAdapter.notifyDataSetChanged();
             }while (cursor.moveToNext());
         }
 
@@ -134,7 +151,8 @@ public class AllUserActivity extends AppCompatActivity {
 
             final Employee currEmployee = getItem(position);
 
-            id_TextView.setText(currEmployee.getEmployee_ID());
+            Log.d(TAG,String.valueOf(currEmployee.getEmployee_ID()));
+            id_TextView.setText(String.valueOf(currEmployee.getEmployee_ID()));
             name_TextView.setText(currEmployee.getName());
 
             name_TextView.setOnClickListener(new View.OnClickListener() {
@@ -155,7 +173,7 @@ public class AllUserActivity extends AppCompatActivity {
                 }
             });
 
-            return null;
+            return convertView;
         }
     }
 

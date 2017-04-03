@@ -24,7 +24,8 @@
         <activity android:name=".PasswordActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".AddUserActivity" />
-        <activity android:name=".AllUserActivity"></activity>
+        <activity android:name=".AllUserActivity" />
+        <activity android:name=".BonusActivity" />
     </application>
 
 </manifest>

@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG_EXPORT = "ExportFunction";
     SQLiteDatabase currDatabase;
-    Button addEmployeeButton,allEmployeeButton;
+    Button addEmployeeButton,allEmployeeButton,bonusButton;
 
 
     @Override
@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
         addEmployeeButton = (Button) findViewById(R.id.addEmployeeButton);
         allEmployeeButton = (Button) findViewById(R.id.allEmployeeButton);
+        bonusButton = (Button) findViewById(R.id.bonusButton);
+
     }
 
     public void setClickListeners(){
@@ -64,6 +66,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        bonusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,BonusActivity.class));
+                finish();
+            }
+        });
     }
 
     @Override
