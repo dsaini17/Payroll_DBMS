@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="EMPLOYEE ID"
+        android:inputType="number"
+        android:id="@+id/loanID"
+        android:textColor="@color/colorBlack"
+        android:textSize="18sp"
+        />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="LOAN AMOUNT"
+        android:inputType="number"
+        android:id="@+id/loanAmount"
+        android:textColor="@color/colorBlack"
+        android:textSize="18sp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="INTEREST RATE"
+        android:inputType="numberDecimal"
+        android:id="@+id/loanInterest"
+        android:textColor="@color/colorBlack"
+        android:textSize="18sp"
+        />
+
+</LinearLayout>

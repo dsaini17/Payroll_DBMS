@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context="com.example.devesh.payroll.LoanActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="LOAN TABLE"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5sp"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="40sp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:text="ID"
+            android:textSize="25sp"
+            android:textAlignment="center"
+            />
+        <TextView
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:text="NAME"
+            android:textSize="25sp"
+            android:textAlignment="center"
+            />
+        <TextView
+            android:layout_width="110sp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:text="AMOUNT"
+            android:textSize="25sp"
+            android:textAlignment="center"
+            />
+
+    </LinearLayout>
+
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/loanListView"
+        ></ListView>
+
+</LinearLayout>

@@ -8,12 +8,22 @@ public class Loan {
 
     Integer Employee_ID;
     Integer Principal;
+    String Name;
     Float InterestRate;
 
-    public Loan(Integer employee_ID, Integer principal, Float interestRate) {
+    public Loan(Integer employee_ID, Integer principal, String name, Float interestRate) {
         Employee_ID = employee_ID;
         Principal = principal;
+        Name = name;
         InterestRate = interestRate;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
     }
 
     public Integer getEmployee_ID() {

@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.example.devesh.payroll.Database.MyDatabase;
 import com.example.devesh.payroll.ExportClass.ExportDatabase;
+import com.example.devesh.payroll.Models.Department;
+import com.example.devesh.payroll.Tables.DepartmentTable;
 import com.example.devesh.payroll.Tables.SalaryTable;
 
 import java.io.IOException;
@@ -26,7 +28,8 @@ public class BonusActivity extends AppCompatActivity {
 
     Button singleUpdate , percentageUpdate , departmentUpdate ;
     SQLiteDatabase database;
-    ArrayList<String> queryList;
+    ArrayList<String> queryList,departList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,8 @@ public class BonusActivity extends AppCompatActivity {
         init();
 
         listeners();
+
+        departList = Department.getAllDepartments();
 
     }
 
@@ -65,6 +70,7 @@ public class BonusActivity extends AppCompatActivity {
 
     public void init(){
 
+        departList = new ArrayList<>();
         queryList = new ArrayList<>();
 
         singleEmployeeID = (EditText) findViewById(R.id.singleBonusEmployee);
@@ -133,6 +139,9 @@ public class BonusActivity extends AppCompatActivity {
     }
 
     public void performDepartmentUpdate(){
+
+        database = MyDatabase.getWritable(getApplicationContext());
+
         Integer legalBonus = Integer.valueOf(legalValue.getText().toString().trim());
         Integer hrBonus = Integer.valueOf(hrValue.getText().toString().trim());
         Integer prBonus = Integer.valueOf(prValue.getText().toString().trim());
@@ -140,6 +149,19 @@ public class BonusActivity extends AppCompatActivity {
         Integer logiBonus = Integer.valueOf(logiValue.getText().toString().trim());
         Integer boardBonus = Integer.valueOf(boardValue.getText().toString().trim());
         Integer financeBonus = Integer.valueOf(financeValue.getText().toString().trim());
+
+        String legalQuery = "UPDATE "+SalaryTable.TABLE_NAME +
+                " SET "+ SalaryTable.Columns.BONUS+" = "+SalaryTable.Columns.BONUS +"+"+ legalBonus
+                + " WHERE "+ SalaryTable.TABLE_NAME+"."+SalaryTable.Columns.EMPLOYEE_ID+" = "+
+                DepartmentTable.TABLE_NAME+"."+DepartmentTable.Columns.EMPLOYEE_ID + " AND "+
+                DepartmentTable.TABLE_NAME+"."+DepartmentTable.Columns.NAME+" = "+departList.get(0)+";";
+                //" JOIN "+ DepartmentTable.TABLE_NAME+" ON "+
+                //SalaryTable.TABLE_NAME+"."+SalaryTable.Columns.EMPLOYEE_ID+" = "+DepartmentTable.TABLE_NAME+"."+DepartmentTable.Columns.EMPLOYEE_ID+
+
+
+        Log.d("legalQuery",legalQuery);
+
+        database.execSQL(legalQuery);
     }
 
     public void askToCreateFile(ArrayList<String> sendData) throws IOException {

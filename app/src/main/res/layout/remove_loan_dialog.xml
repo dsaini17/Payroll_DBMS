@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="10sp"
+    android:layout_height="match_parent"
+    >
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="EMPLOYEE ID"
+        android:id="@+id/getId"
+        android:textColor="@color/colorBlack"
+        android:textSize="18sp"
+        android:inputType="number"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="LOAN AMOUNT"
+        android:textColor="@color/colorBlack"
+        android:textSize="18sp"
+        android:inputType="number"
+        android:id="@+id/getAmount"
+        />
+
+</LinearLayout>
