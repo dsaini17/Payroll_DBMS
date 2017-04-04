@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class ExportDatabase {
 
-    public static final String NEW_LINE = "\n";
+    public static final String NEW_LINE = "\n\n";
 
     public static void Export() throws IOException {
         File inFile = new File(Environment.getDataDirectory()+"/data/com.example.devesh.payroll/databases/"+ MyDatabase.DB_NAME);

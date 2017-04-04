@@ -26,7 +26,9 @@
         <activity android:name=".AddUserActivity" />
         <activity android:name=".AllUserActivity" />
         <activity android:name=".BonusActivity" />
-        <activity android:name=".LoanActivity"></activity>
+        <activity android:name=".LoanActivity" />
+        <activity android:name=".AttendanceActivity" />
+        <activity android:name=".ViewAttendanceActivity"></activity>
     </application>
 
 </manifest>

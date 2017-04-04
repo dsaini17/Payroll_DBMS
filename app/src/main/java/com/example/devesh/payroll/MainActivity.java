@@ -17,9 +17,13 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.devesh.payroll.Database.MyDatabase;
+import com.example.devesh.payroll.Dialogs.attendanceDialog;
 import com.example.devesh.payroll.Dialogs.giveLoanDialog;
 import com.example.devesh.payroll.Dialogs.removeLoanDialog;
 import com.example.devesh.payroll.ExportClass.ExportDatabase;
+import com.example.devesh.payroll.Models.Department;
+import com.example.devesh.payroll.Tables.AttendanceTable;
+import com.example.devesh.payroll.Tables.DepartmentTable;
 import com.example.devesh.payroll.Tables.LoanTable;
 import com.example.devesh.payroll.Tables.SalaryTable;
 
@@ -29,12 +33,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements giveLoanDialog.DialogListener,removeLoanDialog.DialogInterface{
+public class MainActivity extends AppCompatActivity implements giveLoanDialog.DialogListener,
+        removeLoanDialog.DialogInterface,attendanceDialog.attendanceListener{
 
     public static final String TAG_EXPORT = "ExportFunction";
     SQLiteDatabase currDatabase;
-    Button addEmployeeButton,allEmployeeButton,bonusButton,giveLoanButton,removeLoanButton,viewLoanButton;
+    Button addEmployeeButton,allEmployeeButton,bonusButton,giveLoanButton,removeLoanButton,viewLoanButton,
+            enterAttendanceButton,viewAttendanceButton;
     ArrayList<String> queryList;
+    ArrayList<String> departmentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +52,12 @@ public class MainActivity extends AppCompatActivity implements giveLoanDialog.Di
 
         setClickListeners();
 
-
+        departmentList = Department.getAllDepartments();
 
     }
 
     public void init(){
+        departmentList = new ArrayList<>();
         currDatabase = MyDatabase.getReadable(getApplicationContext());
         queryList = new ArrayList<>();
         addEmployeeButton = (Button) findViewById(R.id.addEmployeeButton);
@@ -58,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements giveLoanDialog.Di
         giveLoanButton = (Button) findViewById(R.id.giveLoanButton);
         removeLoanButton = (Button) findViewById(R.id.removeLoanButton);
         viewLoanButton = (Button) findViewById(R.id.viewLoanButton);
+        enterAttendanceButton = (Button) findViewById(R.id.enterAttendanceButton);
+        viewAttendanceButton = (Button) findViewById(R.id.viewAttendanceButton);
     }
 
     public void setClickListeners(){
@@ -105,6 +115,22 @@ public class MainActivity extends AppCompatActivity implements giveLoanDialog.Di
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this,LoanActivity.class));
+                finish();
+            }
+        });
+
+        enterAttendanceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                attendanceDialog dialog = new attendanceDialog();
+                dialog.show(getSupportFragmentManager(),"Attendance Dialog");
+            }
+        });
+
+        viewAttendanceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,ViewAttendanceActivity.class));
                 finish();
             }
         });
@@ -229,5 +255,17 @@ public class MainActivity extends AppCompatActivity implements giveLoanDialog.Di
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void onSelectDepartment(Integer index) {
+        Log.d("selected_Index",index+"");
+
+        String selectedDepartment = departmentList.get(index);
+
+        Intent intent = new Intent(MainActivity.this,AttendanceActivity.class);
+        intent.putExtra("department",selectedDepartment);
+        startActivity(intent);
+        finish();
     }
 }

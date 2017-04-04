@@ -6,14 +6,24 @@ package com.example.devesh.payroll.Models;
 
 public class Attendance {
 
+    String Employee_Name;
     Integer Employee_ID;
     Integer WorkingDays;
     Integer Present;
 
-    public Attendance(Integer employee_ID, Integer workingDays, Integer present) {
+    public Attendance(String employee_Name, Integer employee_ID, Integer workingDays, Integer present) {
+        Employee_Name = employee_Name;
         Employee_ID = employee_ID;
         WorkingDays = workingDays;
         Present = present;
+    }
+
+    public String getEmployee_Name() {
+        return Employee_Name;
+    }
+
+    public void setEmployee_Name(String employee_Name) {
+        Employee_Name = employee_Name;
     }
 
     public Integer getEmployee_ID() {

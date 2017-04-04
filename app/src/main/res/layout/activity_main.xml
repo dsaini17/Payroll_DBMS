@@ -56,6 +56,22 @@
             android:text="VIEW ALL LOANS"
             />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="ENTER ATTENDANCE"
+            android:id="@+id/enterAttendanceButton"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/viewAttendanceButton"
+            android:text="VIEW ATTENDANCE"
+            />
+
     </LinearLayout>
 
 </ScrollView>
