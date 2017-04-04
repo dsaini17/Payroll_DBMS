@@ -72,6 +72,30 @@
             android:text="VIEW ATTENDANCE"
             />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/dispatchSalaryButton"
+            android:text="DISPATCH SALARIES"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/payrollStatisticsButton"
+            android:layout_gravity="center"
+            android:text="STATISTICS"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REMOVE EMPLOYEE"
+            android:layout_gravity="center"
+            android:id="@+id/removeEmployeeButton"
+            />
+
     </LinearLayout>
 
 </ScrollView>

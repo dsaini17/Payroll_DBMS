@@ -28,7 +28,8 @@
         <activity android:name=".BonusActivity" />
         <activity android:name=".LoanActivity" />
         <activity android:name=".AttendanceActivity" />
-        <activity android:name=".ViewAttendanceActivity"></activity>
+        <activity android:name=".ViewAttendanceActivity" />
+        <activity android:name=".DispatchSalaryActivity"></activity>
     </application>
 
 </manifest>

@@ -19,13 +19,17 @@ import android.widget.Toast;
 import com.example.devesh.payroll.Database.MyDatabase;
 import com.example.devesh.payroll.Dialogs.attendanceDialog;
 import com.example.devesh.payroll.Dialogs.giveLoanDialog;
+import com.example.devesh.payroll.Dialogs.removeEmployeeDialog;
 import com.example.devesh.payroll.Dialogs.removeLoanDialog;
 import com.example.devesh.payroll.ExportClass.ExportDatabase;
 import com.example.devesh.payroll.Models.Department;
+import com.example.devesh.payroll.Models.Salary;
 import com.example.devesh.payroll.Tables.AttendanceTable;
 import com.example.devesh.payroll.Tables.DepartmentTable;
+import com.example.devesh.payroll.Tables.EmployeeTable;
 import com.example.devesh.payroll.Tables.LoanTable;
 import com.example.devesh.payroll.Tables.SalaryTable;
+import com.example.devesh.payroll.Tables.TaxTable;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,12 +38,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements giveLoanDialog.DialogListener,
-        removeLoanDialog.DialogInterface,attendanceDialog.attendanceListener{
+        removeLoanDialog.DialogInterface,attendanceDialog.attendanceListener
+    ,removeEmployeeDialog.removeEmployeeListener{
 
     public static final String TAG_EXPORT = "ExportFunction";
     SQLiteDatabase currDatabase;
     Button addEmployeeButton,allEmployeeButton,bonusButton,giveLoanButton,removeLoanButton,viewLoanButton,
-            enterAttendanceButton,viewAttendanceButton;
+            enterAttendanceButton,viewAttendanceButton,payrollStatisticsButton,removeEmloyeeButton,
+            dispatchSalaryButton;
     ArrayList<String> queryList;
     ArrayList<String> departmentList;
 
@@ -68,6 +74,9 @@ public class MainActivity extends AppCompatActivity implements giveLoanDialog.Di
         viewLoanButton = (Button) findViewById(R.id.viewLoanButton);
         enterAttendanceButton = (Button) findViewById(R.id.enterAttendanceButton);
         viewAttendanceButton = (Button) findViewById(R.id.viewAttendanceButton);
+        dispatchSalaryButton = (Button) findViewById(R.id.dispatchSalaryButton);
+        payrollStatisticsButton = (Button) findViewById(R.id.payrollStatisticsButton);
+        removeEmloyeeButton = (Button) findViewById(R.id.removeEmployeeButton);
     }
 
     public void setClickListeners(){
@@ -134,6 +143,29 @@ public class MainActivity extends AppCompatActivity implements giveLoanDialog.Di
                 finish();
             }
         });
+
+        dispatchSalaryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,DispatchSalaryActivity.class));
+                finish();
+            }
+        });
+
+        removeEmloyeeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeEmployeeDialog dialog = new removeEmployeeDialog();
+                dialog.show(getSupportFragmentManager(),"Remove Employee Dialog");
+            }
+        });
+
+        payrollStatisticsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @Override
@@ -176,7 +208,6 @@ public class MainActivity extends AppCompatActivity implements giveLoanDialog.Di
         try {
             askToCreateFile(queryList);
             ExportDatabase.Export();
-            Toast.makeText(getApplicationContext(),"Update Performed",Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -267,5 +298,92 @@ public class MainActivity extends AppCompatActivity implements giveLoanDialog.Di
         intent.putExtra("department",selectedDepartment);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void OnRemoveEmployee(Integer id) {
+        currDatabase = MyDatabase.getReadable(getApplicationContext());
+        queryList.clear();
+
+        String loanQuery = "SELECT * FROM "+LoanTable.TABLE_NAME+" WHERE "+
+                LoanTable.Columns.EMPLOYEE_ID + " = " + id + " ; ";
+        queryList.add(loanQuery);
+        Cursor cursor = currDatabase.rawQuery(loanQuery,null);
+
+        if(cursor.getCount()!=0){
+            if(cursor!=null&&cursor.moveToNext()){
+                Integer Loan = cursor.getInt(cursor.getColumnIndexOrThrow(LoanTable.Columns.PRINCIPAL));
+                Toast.makeText(getApplicationContext(),"EMPLOYEE HAS A LOAN OF RS."+Loan,Toast.LENGTH_LONG).show();
+            }
+        }
+        else{
+
+            currDatabase = MyDatabase.getWritable(getApplicationContext());
+
+            String removeEmployee = "DELETE FROM "+ EmployeeTable.TABLE_NAME+" WHERE "+
+                    EmployeeTable.Columns.ID + " = " + id + " ; ";
+
+            queryList.add(removeEmployee);
+            currDatabase.execSQL(removeEmployee);
+
+
+            String removeDepartment = "DELETE FROM "+ DepartmentTable.TABLE_NAME+" WHERE "+
+                    DepartmentTable.Columns.EMPLOYEE_ID + " = " + id + " ; ";
+
+            queryList.add(removeDepartment);
+            currDatabase.execSQL(removeDepartment);
+
+            String removeLoan = "DELETE FROM "+ LoanTable.TABLE_NAME+" WHERE "+
+                    LoanTable.Columns.EMPLOYEE_ID + " = " + id + " ; ";
+
+            queryList.add(removeLoan);
+            currDatabase.execSQL(removeLoan);
+
+            String removeSalary = "DELETE FROM "+ SalaryTable.TABLE_NAME+" WHERE "+
+                    SalaryTable.Columns.EMPLOYEE_ID + " = " + id + " ; ";
+
+            queryList.add(removeSalary);
+            currDatabase.execSQL(removeSalary);
+
+            String removeAttendance = "DELETE FROM "+ AttendanceTable.TABLE_NAME+" WHERE "+
+                    AttendanceTable.Columns.EMPLOYEE_ID + " = " + id + " ; ";
+
+            queryList.add(removeAttendance);
+            currDatabase.execSQL(removeAttendance);
+
+            String getProvidentFund = "SELECT * FROM "+TaxTable.TABLE_NAME + " WHERE "+
+                    TaxTable.Columns.EMPLOYEE_ID + " = " + id + " ; ";
+
+            queryList.add(getProvidentFund);
+            Cursor mCursor = currDatabase.rawQuery(getProvidentFund,null);
+
+            Float providentFund = Float.valueOf(0);
+
+            if(mCursor.getCount()!=0) {
+                if (mCursor != null && mCursor.moveToFirst()) {
+                    do {
+                        providentFund = mCursor.getFloat(mCursor.getColumnIndexOrThrow(TaxTable.Columns.TAX_COLLECTED));
+                    } while (mCursor.moveToNext());
+                }
+
+
+                String removeTax = "DELETE FROM " + TaxTable.TABLE_NAME + " WHERE " +
+                        TaxTable.Columns.EMPLOYEE_ID + " = " + id + " ; ";
+
+                queryList.add(removeTax);
+                currDatabase.execSQL(removeTax);
+
+                Toast.makeText(getApplicationContext(), "EMPLOYEE REMOVED , PROVIDENT FUND IS Rs." + providentFund, Toast.LENGTH_LONG).show();
+            }
+            else
+                Toast.makeText(getApplicationContext(),"EMPLOYEE NOT PRESENT",Toast.LENGTH_LONG).show();
+        }
+        try {
+            askToCreateFile(queryList);
+            ExportDatabase.Export();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
