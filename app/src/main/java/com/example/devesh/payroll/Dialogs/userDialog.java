@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -43,9 +44,10 @@ public class userDialog extends DialogFragment {
 
         a.setText(args.getString("address"));
         b.setText(args.getString("email"));
-        c.setText(String.valueOf(args.getInt("contact")));
+        c.setText(args.getString("contact"));
         d.setText(args.getString("department"));
-        e.setText(String.valueOf(args.getString("salary")));
+
+        e.setText(String.valueOf(args.getInt("salary")));
         f.setText(String.valueOf(args.getFloat("tax")));
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

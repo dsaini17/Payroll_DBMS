@@ -39,6 +39,8 @@ public class DispatchSalaryActivity extends AppCompatActivity {
     ListView salaryListView;
     String exportString = "";
 
+    public static final String TAG = " dispatch salaries ";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +76,9 @@ public class DispatchSalaryActivity extends AppCompatActivity {
         Log.d("count = ", String.valueOf(cursor.getCount()));
 
         String updateTax1 = "UPDATE "+ TaxTable.TABLE_NAME + " SET "
-                + TaxTable.Columns.TAX_COLLECTED + " = " + " (2*( " + TaxTable.Columns.TAX_COLLECTED + "/100)) ;";
+                + TaxTable.Columns.TAX_COLLECTED + " = " + " (101*( " + TaxTable.Columns.TAX_COLLECTED + "/100)) ;";
+
+        Log.d(TAG,updateTax1);
 
         queryList.add(updateTax1);
         database.execSQL(updateTax1);
@@ -90,7 +94,6 @@ public class DispatchSalaryActivity extends AppCompatActivity {
                 Integer total = cursor.getInt(cursor.getColumnIndexOrThrow(AttendanceTable.Columns.WORKING_DAYS));
                 Integer principal = 0;
                 float rate = 0;
-
 
                 String loanQuery = " SELECT * FROM "+ LoanTable.TABLE_NAME + " WHERE "
                         + LoanTable.Columns.EMPLOYEE_ID + " =  " + id + " ; ";
@@ -111,7 +114,7 @@ public class DispatchSalaryActivity extends AppCompatActivity {
 
                 Integer beta = (salary/100)*6;
 
-                float interest = ((principal/100)*rate)/12;
+                float interest = (principal*rate)/1200;
 
                 Integer Salary_now  = alpha - (int)interest;
 
@@ -140,6 +143,8 @@ public class DispatchSalaryActivity extends AppCompatActivity {
 
                 queryList.add(updateTax2);
                 database.execSQL(updateTax2);
+
+                Log.d(TAG,updateTax2);
 
                 dataList.add(new Salary(id,salary,bonus,present,total,finalSalary,principal,rate,name));
                 salaryAdapter.notifyDataSetChanged();
@@ -214,7 +219,6 @@ public class DispatchSalaryActivity extends AppCompatActivity {
         Integer oldValue = sharedPreferences.getInt("query",0);
         editor.remove("query");
         editor.putInt("query",oldValue+1);
-        // Log.d("Prefs", " old = "+oldValue + "new = "+sharedPreferences.getInt("query",-1));
         editor.apply();
 
         return oldValue;

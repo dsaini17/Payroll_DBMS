@@ -9,13 +9,13 @@ public class Employee {
     Integer Employee_ID;
     String Name;
     String Address;
-    Integer Contact;
+    String Contact;
     String Department;
     String Email;
     Integer Salary;
     Float Tax_Amount;
 
-    public Employee(Integer employee_ID, String name, String address, Integer contact, String department, String email, Integer salary, Float tax_Amount) {
+    public Employee(Integer employee_ID, String name, String address, String contact, String department, String email, Integer salary, Float tax_Amount) {
         Employee_ID = employee_ID;
         Name = name;
         Address = address;
@@ -74,11 +74,11 @@ public class Employee {
         Address = address;
     }
 
-    public Integer getContact() {
+    public String getContact() {
         return Contact;
     }
 
-    public void setContact(Integer contact) {
+    public void setContact(String contact) {
         Contact = contact;
     }
 

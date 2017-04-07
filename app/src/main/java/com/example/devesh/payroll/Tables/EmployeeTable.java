@@ -16,7 +16,7 @@ public class EmployeeTable extends BasicTable {
             + Columns.ID + TYPE_INT_PK + COMMA
             + Columns.NAME + TYPE_TEXT + NOT_NULL + COMMA
             + Columns.ADDRESS + TYPE_TEXT + COMMA
-            + Columns.CONTACT + TYPE_INT + COMMA
+            + Columns.CONTACT + TYPE_TEXT + COMMA
             + Columns.EMAIL + TYPE_TEXT
             + RBR + ";";
 

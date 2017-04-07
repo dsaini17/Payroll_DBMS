@@ -32,6 +32,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static com.example.devesh.payroll.R.id.employeeID;
 import static com.example.devesh.payroll.R.id.userAddButton;
 
 public class AddUserActivity extends AppCompatActivity {
@@ -112,8 +113,8 @@ public class AddUserActivity extends AppCompatActivity {
         String address = userAddress.getText().toString().trim();
         String email = userEmailAddress.getText().toString().trim();
         String department = departmentNameList.get(spinnerPosition);
-        Integer contact = Integer.valueOf(userContact.getText().toString().trim());
-        Integer salary = Integer.valueOf(userSalary.getText().toString().trim());
+        String contact = userContact.getText().toString().trim();
+        Integer salary = Integer.parseInt(userSalary.getText().toString().trim());
 
         Log.d(TAG,spinnerPosition + " " + department);
 
@@ -123,22 +124,28 @@ public class AddUserActivity extends AppCompatActivity {
                 + EmployeeTable.Columns.ADDRESS + ","
                 + EmployeeTable.Columns.EMAIL + ","
                 + EmployeeTable.Columns.CONTACT + " ) "
-                + " VALUES ( "+ "'" +name+"'" + ","+ "'" +address+"'" + "," + "'" +email+"'" + "," + contact +" );";
+                + " VALUES ( "+ "'" +name+"'" + ","+ "'" +address+"'" + "," + "'" +email+"'" + ","
+                + "'" + contact + "'" +" ) ; ";
 
         Log.d(TAG,employeeQuery);
         database.execSQL(employeeQuery);
         querySaveList.add(employeeQuery);
 
         Cursor cursor = database.rawQuery("SELECT * FROM "+EmployeeTable.TABLE_NAME+";",null);
-        cursor.move(cursor.getCount());
-        //cursor.moveToLast();
 
-        Integer employeeID = cursor.getInt(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.ID));
-        Log.d(TAG,"ID is = "+cursor.getInt(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.ID)));
+       boolean ifRowPresent = cursor.moveToLast();
+
+        //Log.v(TAG, String.valueOf(cursor.getInt(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.ID))));
+
+        Integer last_Id = 0;
+        if(ifRowPresent) {
+            last_Id = cursor.getInt(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.ID));
+            Log.d(TAG, "ID is = " + last_Id);
+        }
 
 
         String salaryQuery = " INSERT INTO "+ SalaryTable.TABLE_NAME + " VALUES "
-                + " ( " + employeeID + " , "
+                + " ( " + last_Id + " , "
                 + salary + ","
                 + 0 + " );";
 
@@ -148,7 +155,7 @@ public class AddUserActivity extends AppCompatActivity {
 
         Department currDepartment = departmentArrayList.get(spinnerPosition);
         String departmentQuery = " INSERT INTO "+ DepartmentTable.TABLE_NAME + " VALUES ( "
-                + employeeID + ","
+                + last_Id + ","
                 + "'" + currDepartment.getName() + "'" + " , "
                 + currDepartment.getDepartment_ID() + " ); ";
 
@@ -157,7 +164,7 @@ public class AddUserActivity extends AppCompatActivity {
         querySaveList.add(departmentQuery);
 
         String taxQuery = " INSERT INTO "+ TaxTable.TABLE_NAME + " VALUES ( "
-                + employeeID + ","
+                + last_Id + ","
                 + 0 + " );";
 
         Log.d(TAG,taxQuery);
@@ -165,7 +172,7 @@ public class AddUserActivity extends AppCompatActivity {
         querySaveList.add(taxQuery);
 
         String attendanceQuery = " INSERT INTO "+ AttendanceTable.TABLE_NAME + " VALUES ( "
-                + employeeID + ","
+                + last_Id + ","
                 + 0 + ","
                 + 0 + " );";
 
@@ -179,7 +186,6 @@ public class AddUserActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         startActivity(new Intent(AddUserActivity.this,MainActivity.class));
     }
 
@@ -192,13 +198,10 @@ public class AddUserActivity extends AppCompatActivity {
     public int getPrefs(){
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-
         Integer oldValue = sharedPreferences.getInt("query",0);
         editor.remove("query");
         editor.putInt("query",oldValue+1);
-       // Log.d("Prefs", " old = "+oldValue + "new = "+sharedPreferences.getInt("query",-1));
         editor.apply();
-
         return oldValue;
     }
 

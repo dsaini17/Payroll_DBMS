@@ -56,20 +56,22 @@ public class AllUserActivity extends AppCompatActivity {
         database = MyDatabase.getReadable(getApplicationContext());
 
         Cursor cursor = database.rawQuery(queryAll,null);
-        Log.d(TAG,cursor.getCount()+" "+cursor.getColumnCount() + " "+ cursor.getColumnNames());
-        String[] column = cursor.getColumnNames();
+//        Log.d(TAG,cursor.getCount()+" "+cursor.getColumnCount() + " "+ cursor.getColumnNames());
+//        String[] column = cursor.getColumnNames();
+//
+//        for(int i=0;i<column.length;i++){
+//            Log.d(TAG,column[i]);
+//        }
 
-        for(int i=0;i<column.length;i++){
-            Log.d(TAG,column[i]);
-        }
         if(cursor!=null&&cursor.moveToFirst()){
                 do{
+
                 String name = cursor.getString(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.NAME));
                 Integer id = cursor.getInt(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.ID));
                 String address = cursor.getString(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.ADDRESS));
                 String email = cursor.getString(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.EMAIL));
                 String department = cursor.getString(cursor.getColumnIndexOrThrow(DepartmentTable.Columns.NAME));
-                Integer contact = cursor.getInt(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.CONTACT));
+                String contact = cursor.getString(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.CONTACT));
                 Integer salary = cursor.getInt(cursor.getColumnIndexOrThrow(SalaryTable.Columns.SALARY));
                 Float tax = cursor.getFloat(cursor.getColumnIndexOrThrow(TaxTable.Columns.TAX_COLLECTED));
 
@@ -151,7 +153,7 @@ public class AllUserActivity extends AppCompatActivity {
 
             final Employee currEmployee = getItem(position);
 
-            Log.d(TAG,String.valueOf(currEmployee.getEmployee_ID()));
+//            Log.d(TAG,String.valueOf(currEmployee.getEmployee_ID()));
             id_TextView.setText(String.valueOf(currEmployee.getEmployee_ID()));
             name_TextView.setText(currEmployee.getName());
 
@@ -163,8 +165,9 @@ public class AllUserActivity extends AppCompatActivity {
                     bundle.putString("address",currEmployee.getAddress());
                     bundle.putString("department",currEmployee.getDepartment());
                     bundle.putString("email",currEmployee.getEmail());
+                    bundle.putString("contact",currEmployee.getContact());
+
                     bundle.putInt("salary",currEmployee.getSalary());
-                    bundle.putInt("contact",currEmployee.getContact());
                     bundle.putFloat("tax",currEmployee.getTax_Amount());
 
                     userDialog Dialog = new userDialog();
