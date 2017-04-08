@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:padding="10sp"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        app:cardElevation="5sp"
+        app:cardCornerRadius="10sp"
+        app:cardBackgroundColor="@color/cardview_light_background"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:padding="10sp"
+            android:layout_height="wrap_content">
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="EMPLOYEE ID"
         android:id="@+id/getId"
@@ -16,7 +29,7 @@
         />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="LOAN AMOUNT"
         android:textColor="@color/colorBlack"
@@ -24,5 +37,9 @@
         android:inputType="number"
         android:id="@+id/getAmount"
         />
+
+            </LinearLayout>
+
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>
