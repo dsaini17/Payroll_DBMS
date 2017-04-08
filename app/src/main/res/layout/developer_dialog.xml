@@ -9,7 +9,7 @@
     <android.support.v7.widget.CardView
         app:cardElevation="5sp"
         app:cardCornerRadius="10sp"
-        app:cardBackgroundColor="@color/LightGrey"
+        app:cardBackgroundColor="@color/cardview_light_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         
@@ -20,17 +20,18 @@
             android:layout_height="wrap_content">
             
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="100sp"
-                android:layout_height="100sp"
-                android:src="@mipmap/ic_launcher"
+                android:layout_width="60sp"
+                android:layout_height="60sp"
+                android:layout_marginLeft="15sp"
+                android:src="@drawable/send"
                 app:civ_border_width="2sp"
                 />
 
             <LinearLayout
-                android:layout_marginLeft="10sp"
+                android:layout_marginLeft="15sp"
                 android:layout_width="200sp"
                 android:orientation="vertical"
-                android:layout_height="100sp">
+                android:layout_height="60sp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -56,12 +57,12 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
-    app:cardElevation="5sp"
+        app:cardElevation="5sp"
+        app:cardCornerRadius="10sp"
+        app:cardBackgroundColor="@color/cardview_light_background"
+        android:layout_width="match_parent"
         android:layout_marginTop="10sp"
-    app:cardCornerRadius="10sp"
-    app:cardBackgroundColor="@color/LightGrey"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,17 +71,18 @@
             android:layout_height="wrap_content">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="100sp"
-                android:layout_height="100sp"
-                android:src="@mipmap/ic_launcher"
+                android:layout_width="60sp"
+                android:layout_height="60sp"
+                android:layout_marginLeft="15sp"
+                android:src="@drawable/send"
                 app:civ_border_width="2sp"
                 />
 
             <LinearLayout
-                android:layout_marginLeft="10sp"
+                android:layout_marginLeft="15sp"
                 android:layout_width="200sp"
                 android:orientation="vertical"
-                android:layout_height="100sp">
+                android:layout_height="60sp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -107,30 +109,32 @@
 
     <android.support.v7.widget.CardView
         app:cardElevation="5sp"
-        android:layout_marginTop="10sp"
         app:cardCornerRadius="10sp"
-        app:cardBackgroundColor="@color/LightGrey"
+        android:layout_marginTop="10sp"
+        app:cardBackgroundColor="@color/cardview_light_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
+
             android:padding="10sp"
             android:layout_height="wrap_content">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="100sp"
-                android:layout_height="100sp"
-                android:src="@mipmap/ic_launcher"
+                android:layout_width="60sp"
+                android:layout_height="60sp"
+                android:layout_marginLeft="15sp"
+                android:src="@drawable/send"
                 app:civ_border_width="2sp"
                 />
 
             <LinearLayout
-                android:layout_marginLeft="10sp"
+                android:layout_marginLeft="15sp"
                 android:layout_width="200sp"
                 android:orientation="vertical"
-                android:layout_height="100sp">
+                android:layout_height="60sp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -155,4 +159,24 @@
 
     </android.support.v7.widget.CardView>
 
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        app:cardElevation="5sp"
+        android:layout_marginTop="10sp"
+        app:cardBackgroundColor="@color/cardview_light_background"
+        app:cardCornerRadius="10sp"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5sp"
+        android:text="https://github.com/dsaini17/Payroll_DBMS"
+        android:textSize="20sp"
+        android:textAlignment="center"
+        android:textColor="@color/colorBlack"
+        android:id="@+id/githubCode"
+        />
+
+    </android.support.v7.widget.CardView>
 </LinearLayout>

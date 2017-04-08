@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -27,6 +28,8 @@ import com.example.devesh.payroll.Dialogs.passwordDialog;
 
 import java.util.Map;
 
+import is.arontibo.library.ElasticDownloadView;
+
 public class PasswordActivity extends AppCompatActivity implements passwordDialog.DialogListener{
 
     public static int requestCodePermission ;
@@ -35,8 +38,11 @@ public class PasswordActivity extends AppCompatActivity implements passwordDialo
     EditText passwordEditText;
     Button loginButton;
     TextView passwordTextView,developerTextView;
+    ElasticDownloadView magicView;
 
     String enteredPassword,originalPassword;
+
+    public static final int ANIMATION_DURATION = 250;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,8 @@ public class PasswordActivity extends AppCompatActivity implements passwordDialo
         // Listeners
         setListeners();
 
+        magicView.startIntro();
+        magicView.setProgress(0);
     }
 
     public void init(){
@@ -69,6 +77,7 @@ public class PasswordActivity extends AppCompatActivity implements passwordDialo
         passwordTextView = (TextView) findViewById(R.id.passwordTextView);
         developerTextView = (TextView) findViewById(R.id.developerTextView);
         loginButton = (Button) findViewById(R.id.loginButton);
+        magicView = (ElasticDownloadView) findViewById(R.id.magicView);
     }
 
     public void verifyPreferences(){
@@ -98,10 +107,10 @@ public class PasswordActivity extends AppCompatActivity implements passwordDialo
                     Toast.makeText(PasswordActivity.this,"Enter Password",Toast.LENGTH_SHORT).show();
                 else{
                     if(enteredPassword.matches(originalPassword)){
-                        startActivity(new Intent(PasswordActivity.this,MainActivity.class));
-                        finish();
+                        animation_success();
                     }
                     else {
+                        animation_fail();
                         Toast.makeText(PasswordActivity.this, "Wrong Password", Toast.LENGTH_SHORT).show();
                         passwordEditText.setText("");
                     }
@@ -196,6 +205,47 @@ public class PasswordActivity extends AppCompatActivity implements passwordDialo
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    public void animation_success(){
+
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                magicView.startIntro();
+                //magicView.setProgress(0);
+            }
+        });
+        magicView.setProgress(100);
+        magicView.success();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(new Intent(PasswordActivity.this,MainActivity.class));
+                finish();
+            }
+        },8*ANIMATION_DURATION);
+
+
+    }
+
+    public void animation_fail(){
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                magicView.startIntro();
+            }
+        });
+
+        magicView.setProgress(45);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                magicView.fail();
+            }
+        },5*ANIMATION_DURATION);
+
     }
 
 }

@@ -12,6 +12,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -37,15 +39,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import info.hoang8f.widget.FButton;
+
 public class MainActivity extends AppCompatActivity implements giveLoanDialog.DialogListener,
         removeLoanDialog.DialogInterface,attendanceDialog.attendanceListener
     ,removeEmployeeDialog.removeEmployeeListener{
 
     public static final String TAG_EXPORT = "ExportFunction";
     SQLiteDatabase currDatabase;
-    Button addEmployeeButton,allEmployeeButton,bonusButton,giveLoanButton,removeLoanButton,viewLoanButton,
+    FButton addEmployeeButton,allEmployeeButton,bonusButton,giveLoanButton,removeLoanButton,viewLoanButton,
             enterAttendanceButton,viewAttendanceButton,payrollStatisticsButton,removeEmloyeeButton,
-            dispatchSalaryButton;
+            dispatchSalaryButton,modifyEmployeeButton;
     ArrayList<String> queryList;
     ArrayList<String> departmentList;
 
@@ -66,17 +70,37 @@ public class MainActivity extends AppCompatActivity implements giveLoanDialog.Di
         departmentList = new ArrayList<>();
         currDatabase = MyDatabase.getReadable(getApplicationContext());
         queryList = new ArrayList<>();
-        addEmployeeButton = (Button) findViewById(R.id.addEmployeeButton);
-        allEmployeeButton = (Button) findViewById(R.id.allEmployeeButton);
-        bonusButton = (Button) findViewById(R.id.bonusButton);
-        giveLoanButton = (Button) findViewById(R.id.giveLoanButton);
-        removeLoanButton = (Button) findViewById(R.id.removeLoanButton);
-        viewLoanButton = (Button) findViewById(R.id.viewLoanButton);
-        enterAttendanceButton = (Button) findViewById(R.id.enterAttendanceButton);
-        viewAttendanceButton = (Button) findViewById(R.id.viewAttendanceButton);
-        dispatchSalaryButton = (Button) findViewById(R.id.dispatchSalaryButton);
-        payrollStatisticsButton = (Button) findViewById(R.id.payrollStatisticsButton);
-        removeEmloyeeButton = (Button) findViewById(R.id.removeEmployeeButton);
+        addEmployeeButton = (FButton) findViewById(R.id.addEmployeeButton);
+        allEmployeeButton = (FButton) findViewById(R.id.allEmployeeButton);
+        bonusButton = (FButton) findViewById(R.id.bonusButton);
+        giveLoanButton = (FButton) findViewById(R.id.giveLoanButton);
+        removeLoanButton = (FButton) findViewById(R.id.removeLoanButton);
+        viewLoanButton = (FButton) findViewById(R.id.viewLoanButton);
+        enterAttendanceButton = (FButton) findViewById(R.id.enterAttendanceButton);
+        viewAttendanceButton = (FButton) findViewById(R.id.viewAttendanceButton);
+        dispatchSalaryButton = (FButton) findViewById(R.id.dispatchSalaryButton);
+        payrollStatisticsButton = (FButton) findViewById(R.id.statsButton);
+        removeEmloyeeButton = (FButton) findViewById(R.id.removeEmployeeButton);
+        modifyEmployeeButton = (FButton) findViewById(R.id.modifyEmployeeButton);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.logout_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.logoutInMenu : startActivity(new Intent(MainActivity.this,PasswordActivity.class));
+                finish();
+                return true;
+
+            default:return super.onOptionsItemSelected(item);
+        }
+
     }
 
     public void setClickListeners(){

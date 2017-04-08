@@ -2,12 +2,15 @@ package com.example.devesh.payroll.Dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.devesh.payroll.R;
 
@@ -31,6 +34,15 @@ public class developerDialog extends DialogFragment{
 
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
         View convertView = layoutInflater.inflate(R.layout.developer_dialog,null);
+
+        final TextView getcode  = (TextView) convertView.findViewById(R.id.githubCode);
+
+        getcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getcode.getText().toString().trim())));
+            }
+        });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(myCcontext);
         builder.setTitle("Developers");

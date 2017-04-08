@@ -1,100 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="5sp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-        <Button
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ADD EMPLOYEE"
-            android:id="@+id/addEmployeeButton"
-            android:layout_gravity="center"
-            />
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="List All Employees"
-            android:id="@+id/allEmployeeButton"
-            />
+            <info.hoang8f.widget.FButton
+                android:id="@+id/addEmployeeButton"
+                android:layout_width="150sp"
+                android:layout_height="60sp"
+                android:layout_gravity="center"
+                android:layout_margin="15sp"
+                android:text="ADD EMPLOYEE"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                app:cornerRadius="10sp"
+                app:buttonColor="@color/fbutton_color_turquoise"
+                app:shadowColor="@color/fbutton_color_green_sea"
+                app:shadowEnabled="true"
+                />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="GIVE BONUS"
-            android:id="@+id/bonusButton"
-            />
+            <info.hoang8f.widget.FButton
+                android:id="@+id/allEmployeeButton"
+                android:layout_width="150sp"
+                android:layout_height="60sp"
+                android:layout_gravity="center"
+                android:layout_margin="15sp"
+                android:text="list all employees"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                app:cornerRadius="10sp"
+                
+                app:buttonColor="@color/fbutton_color_sun_flower"
+                app:shadowColor="@color/fbutton_color_orange"
+                app:shadowEnabled="true" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/giveLoanButton"
-            android:text="GIVE LOAN"
-            />
+            <info.hoang8f.widget.FButton
+                android:id="@+id/modifyEmployeeButton"
+                android:layout_width="150sp"
+                android:layout_height="60sp"
+                android:layout_gravity="center"
+                android:layout_margin="15sp"
+                android:text="Modify employee"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                app:cornerRadius="10sp"
+                app:buttonColor="@color/fbutton_color_alizarin"
+                app:shadowColor="@color/fbutton_color_pumpkin"
+                app:shadowEnabled="true" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/removeLoanButton"
-            android:text="REMOVE LOAN"
-            />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/viewLoanButton"
-            android:layout_gravity="center"
-            android:text="VIEW ALL LOANS"
-            />
+            <info.hoang8f.widget.FButton
+                android:id="@+id/removeEmployeeButton"
+                android:layout_width="150sp"
+                android:layout_height="60sp"
+                android:layout_gravity="center"
+                android:layout_margin="15sp"
+                android:text="REMOVE EMPLOYEE"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                app:cornerRadius="10sp"
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="ENTER ATTENDANCE"
-            android:id="@+id/enterAttendanceButton"
-            />
+                app:buttonColor="@color/fbutton_color_c4"
+                app:shadowColor="@color/fbutton_color_s4"
+                app:shadowEnabled="true" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/viewAttendanceButton"
-            android:text="VIEW ATTENDANCE"
-            />
+            <info.hoang8f.widget.FButton
+                android:id="@+id/statsButton"
+                android:layout_width="150sp"
+                android:layout_height="60sp"
+                android:layout_gravity="center"
+                android:layout_margin="15sp"
+                android:text="statistics"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                app:cornerRadius="10sp"
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/dispatchSalaryButton"
-            android:text="DISPATCH SALARIES"
-            />
+                app:buttonColor="@color/fbutton_color_c3"
+                app:shadowColor="@color/fbutton_color_s3"
+                app:shadowEnabled="true" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/payrollStatisticsButton"
-            android:layout_gravity="center"
-            android:text="STATISTICS"
-            />
 
-        <Button
-            android:layout_width="wrap_content"
+            <info.hoang8f.widget.FButton
+                android:id="@+id/bonusButton"
+                android:layout_width="150sp"
+                android:layout_height="60sp"
+                android:layout_gravity="center"
+                android:layout_margin="15sp"
+                android:text="GIVE BONUS"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                app:cornerRadius="10sp"
+                
+                app:buttonColor="@color/fbutton_color_peter_river"
+                app:shadowColor="@color/fbutton_color_belize_hole"
+                app:shadowEnabled="true" />
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="REMOVE EMPLOYEE"
-            android:layout_gravity="center"
-            android:id="@+id/removeEmployeeButton"
-            />
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <info.hoang8f.widget.FButton
+                android:id="@+id/giveLoanButton"
+                android:layout_width="150sp"
+                android:layout_height="60sp"
+                android:layout_gravity="center"
+                android:layout_margin="15sp"
+                android:text="Give Loan"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                app:cornerRadius="10sp"
+
+                app:buttonColor="@color/fbutton_color_c1"
+                app:shadowColor="@color/fbutton_color_s1"
+                app:shadowEnabled="true" />
+
+            <info.hoang8f.widget.FButton
+                android:id="@+id/removeLoanButton"
+                android:layout_width="150sp"
+                android:layout_height="60sp"
+                android:layout_gravity="center"
+                android:layout_margin="15sp"
+                android:text="REMOVE LOAN"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                app:cornerRadius="10sp"
+
+                app:buttonColor="@color/fbutton_color_emerald"
+                app:shadowColor="@color/fbutton_color_nephritis"
+                app:shadowEnabled="true" />
+
+            <info.hoang8f.widget.FButton
+                android:id="@+id/viewLoanButton"
+                android:layout_width="150sp"
+                android:layout_height="60sp"
+                android:layout_gravity="center"
+                android:layout_margin="15sp"
+                android:text="VIEW LOANS"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                app:cornerRadius="10sp"
+                
+                app:buttonColor="@color/fbutton_color_wet_asphalt"
+                app:shadowColor="@color/fbutton_color_midnight_blue"
+                app:shadowEnabled="true" />
+
+            <info.hoang8f.widget.FButton
+                android:id="@+id/enterAttendanceButton"
+                android:layout_width="150sp"
+                android:layout_height="60sp"
+                android:layout_gravity="center"
+                android:layout_margin="15sp"
+                android:text="ENTER ATTENDANCE"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                app:cornerRadius="10sp"
+                
+                app:buttonColor="@color/fbutton_color_concrete"
+                app:shadowColor="@color/fbutton_color_asbestos"
+                app:shadowEnabled="true" />
+
+            <info.hoang8f.widget.FButton
+                android:id="@+id/viewAttendanceButton"
+                android:layout_width="150sp"
+                android:layout_height="60sp"
+                android:layout_gravity="center"
+                android:layout_margin="15sp"
+                android:text="VIEW ATTENDANCE"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                app:cornerRadius="10sp"
+                
+                app:buttonColor="@color/fbutton_color_amethyst"
+                app:shadowColor="@color/fbutton_color_wisteria"
+                app:shadowEnabled="true" />
+
+            <info.hoang8f.widget.FButton
+                android:id="@+id/dispatchSalaryButton"
+                android:layout_width="150sp"
+                android:layout_height="60sp"
+                android:layout_gravity="center"
+                android:layout_margin="15sp"
+                android:text="Dispatch Salaries"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                app:cornerRadius="10sp"
+                
+                app:buttonColor="@color/fbutton_color_c2"
+                app:shadowColor="@color/fbutton_color_s2"
+                app:shadowEnabled="true" />
+
+
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
