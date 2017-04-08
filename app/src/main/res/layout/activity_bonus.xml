@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
+    android:padding="5sp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.devesh.payroll.BonusActivity">
@@ -14,12 +14,27 @@
         android:orientation="vertical"
         >
 
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            app:cardBackgroundColor="@color/cardview_light_background"
+            app:cardElevation="5sp"
+            app:cardCornerRadius="10sp"
+            android:layout_marginTop="5sp"
+            android:layout_height="match_parent">
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10sp"
+                >
+        
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Give Bonus To a Single Employee"
         android:textColor="@color/colorBlack"
-        android:textSize="18sp"
+        android:textSize="20sp"
         />
 
     <LinearLayout
@@ -31,7 +46,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
+        android:inputType="number"
         android:hint="EMPLOYEE ID"
         android:layout_weight="1"
         android:id="@+id/singleBonusEmployee"
@@ -41,7 +56,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
+            android:inputType="number"
             android:hint="BONUS"
             android:id="@+id/singleBonusValue"
             android:layout_weight="1"
@@ -55,14 +70,33 @@
         android:layout_height="wrap_content"
         android:text="UPDATE"
         android:id="@+id/singleBonusUpdate"
+        android:layout_gravity="center"
+        android:background="@drawable/button_style1"
+        android:textColor="@drawable/button_style1_text"
         />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
 
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        app:cardBackgroundColor="@color/cardview_light_background"
+        app:cardElevation="5sp"
+        app:cardCornerRadius="10sp"
+        android:layout_marginTop="5sp"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10sp"
+        >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Give Bonus According To Salary"
         android:textColor="@color/colorBlack"
-        android:textSize="18sp"
+        android:textSize="20sp"
         />
 
     <EditText
@@ -79,14 +113,36 @@
         android:layout_height="wrap_content"
         android:text="UPDATE"
         android:id="@+id/percentageBonusUpdate"
+        android:layout_gravity="center"
+        android:background="@drawable/button_style1"
+        android:textColor="@drawable/button_style1_text"
         />
+    
+    </LinearLayout>
+    
+    </android.support.v7.widget.CardView>
+    
+    
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        app:cardBackgroundColor="@color/cardview_light_background"
+        app:cardElevation="5sp"
+        app:cardCornerRadius="10sp"
+        android:layout_marginTop="5sp"
+        android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10sp"
+        >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Give Bonus According To Department"
         android:textColor="@color/colorBlack"
-        android:textSize="18sp"
+        android:textSize="20sp"
         />
 
     <LinearLayout
@@ -96,12 +152,12 @@
         >
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="150sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="LEGAL"
             android:textAlignment="center"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/actionRed"
             android:textSize="18sp"
             />
 
@@ -110,7 +166,8 @@
             android:layout_height="wrap_content"
             android:hint="BONUS"
             android:layout_weight="1"
-            android:inputType="numberDecimal"
+            android:inputType="number"
+            android:textColor="@color/colorBlack"
             android:textAlignment="center"
             android:id="@+id/legalBonus"
             />
@@ -123,12 +180,12 @@
         >
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="150sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="FINANCE"
             android:textAlignment="center"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/actionRed"
             android:textSize="18sp"
             />
 
@@ -138,7 +195,8 @@
             android:hint="BONUS"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:inputType="numberDecimal"
+            android:inputType="number"
+            android:textColor="@color/colorBlack"
             android:id="@+id/financeBonus"
             />
     </LinearLayout>
@@ -150,19 +208,20 @@
         >
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="150sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="MARKETING"
             android:textAlignment="center"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/actionRed"
             android:textSize="18sp"
             />
 
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
+            android:inputType="number"
+            android:textColor="@color/colorBlack"
             android:hint="BONUS"
             android:layout_weight="1"
             android:textAlignment="center"
@@ -177,12 +236,12 @@
         >
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="150sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="LOGISTICS"
             android:textAlignment="center"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/actionRed"
             android:textSize="18sp"
             />
 
@@ -190,7 +249,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="BONUS"
-            android:inputType="numberDecimal"
+            android:inputType="number"
+            android:textColor="@color/colorBlack"
             android:layout_weight="1"
             android:textAlignment="center"
             android:id="@+id/logisticsBonus"
@@ -204,18 +264,19 @@
         >
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="150sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="BOARD"
             android:textAlignment="center"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/actionRed"
             android:textSize="18sp"
             />
 
         <EditText
             android:layout_width="wrap_content"
-            android:inputType="numberDecimal"
+            android:inputType="number"
+            android:textColor="@color/colorBlack"
             android:layout_height="wrap_content"
             android:hint="BONUS"
             android:layout_weight="1"
@@ -231,12 +292,12 @@
         >
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="150sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="HUMAN RELATIONS"
             android:textAlignment="center"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/actionRed"
             android:textSize="18sp"
             />
 
@@ -245,7 +306,8 @@
             android:layout_height="wrap_content"
             android:hint="BONUS"
             android:layout_weight="1"
-            android:inputType="numberDecimal"
+            android:inputType="number"
+            android:textColor="@color/colorBlack"
             android:textAlignment="center"
             android:id="@+id/hrBonus"
             />
@@ -258,12 +320,12 @@
         >
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="150sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="PUBLIC RELATIONS"
             android:textAlignment="center"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/actionRed"
             android:textSize="18sp"
             />
 
@@ -274,7 +336,8 @@
             android:layout_weight="1"
             android:textAlignment="center"
             android:id="@+id/prBonus"
-            android:inputType="numberDecimal"
+            android:inputType="number"
+            android:textColor="@color/colorBlack"
             />
     </LinearLayout>
 
@@ -282,8 +345,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="UPDATE"
+            android:layout_gravity="center"
+            android:background="@drawable/button_style1"
+            android:textColor="@drawable/button_style1_text"
             android:id="@+id/departmentUpdateButton"
             />
+        
+        </LinearLayout>
+        
+        </android.support.v7.widget.CardView>
 
     </LinearLayout>
 </ScrollView>

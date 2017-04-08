@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:scrolling_image_view="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,8 +14,21 @@
         android:textColor="@color/colorPrimaryDark"
         android:text="LOAN TABLE"
         android:textSize="30sp"
+        android:background="@color/colorWhite"
+        android:typeface="monospace"
         android:textAlignment="center"
         />
+
+    <android.support.v7.widget.CardView
+        android:layout_margin="5sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="5sp"
+        app:cardCornerRadius="10sp"
+        app:cardBackgroundColor="@color/cardview_light_background"
+        android:padding="10sp"
+        >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +40,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorAccent"
             android:text="ID"
-            android:textSize="25sp"
+            android:textSize="22sp"
             android:textAlignment="center"
             />
         <TextView
@@ -34,25 +48,47 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorAccent"
             android:text="NAME"
-            android:textSize="25sp"
+            android:textSize="22sp"
             android:textAlignment="center"
             />
         <TextView
-            android:layout_width="110sp"
+            android:layout_width="100sp"
             android:layout_height="wrap_content"
             android:textColor="@color/colorAccent"
             android:text="AMOUNT"
-            android:textSize="25sp"
+            android:textSize="22sp"
             android:textAlignment="center"
             />
 
     </LinearLayout>
+    </android.support.v7.widget.CardView>
 
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="360sp"
         android:id="@+id/loanListView"
         ></ListView>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="10sp"
+        android:layout_height="wrap_content">
+
+        <com.q42.android.scrollingimageview.ScrollingImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            scrolling_image_view:speed="3dp"
+            scrolling_image_view:src="@array/random_imgs"
+            scrolling_image_view:randomness="@array/randomness" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:src="@drawable/van" />
+
+    </FrameLayout>
 
 </LinearLayout>

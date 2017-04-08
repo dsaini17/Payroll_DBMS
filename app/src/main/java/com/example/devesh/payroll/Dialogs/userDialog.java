@@ -44,11 +44,11 @@ public class userDialog extends DialogFragment {
 
         a.setText(args.getString("address"));
         b.setText(args.getString("email"));
-        c.setText(args.getString("contact"));
+        c.setText(args.getString("contact")+"  (Contact)");
         d.setText(args.getString("department"));
 
-        e.setText(String.valueOf(args.getInt("salary")));
-        f.setText(String.valueOf(args.getFloat("tax")));
+        e.setText((String.valueOf(args.getInt("salary")))+"  (Salary)");
+        f.setText((String.valueOf(args.getFloat("tax")))+"  (Provident Fund)");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view).setCancelable(true);

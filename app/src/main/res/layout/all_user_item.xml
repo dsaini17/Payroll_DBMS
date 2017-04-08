@@ -1,26 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10sp"
-    >
+    android:padding="10sp">
+
+    <android.support.v7.widget.CardView
+        android:layout_margin="2sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="5sp"
+        app:cardCornerRadius="10sp"
+        app:cardBackgroundColor="@color/fbutton_color_nephritis"
+        android:padding="10sp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10sp"
+            android:layout_height="wrap_content">
 
     <TextView
+        android:layout_margin="5sp"
         android:layout_width="100sp"
         android:textAlignment="center"
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:id="@+id/user_id_TextView"
-        android:textColor="@color/colorBlack"
+        android:textColor="@color/colorWhite"
         />
 
     <TextView
+        android:layout_margin="5sp"
         android:layout_width="200sp"
         android:layout_height="wrap_content"
         android:textSize="18sp"
+        android:textAlignment="center"
         android:layout_marginLeft="20sp"
         android:id="@+id/user_name_TextView"
-        android:textColor="@color/colorBlack"
+        android:textColor="@color/colorWhite"
         />
+        </LinearLayout>
 
+    </android.support.v7.widget.CardView>
 </LinearLayout>

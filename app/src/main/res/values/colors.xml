@@ -48,4 +48,7 @@
     <color name="fbutton_color_c4">#12bfa6</color>
     <color name="fbutton_color_s4">#068989</color>
 
+        <color name="fbutton_color_yellow">#fff200</color>
+    <color name="lightBackround">#f2f2f2</color>
+
 </resources>
