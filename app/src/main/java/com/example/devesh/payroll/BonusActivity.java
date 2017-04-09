@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.example.devesh.payroll.Database.MyDatabase;
 import com.example.devesh.payroll.ExportClass.ExportDatabase;
 import com.example.devesh.payroll.Models.Department;
-import com.example.devesh.payroll.Tables.DepartmentTable;
 import com.example.devesh.payroll.Tables.SalaryTable;
 
 import java.io.IOException;
@@ -59,12 +58,12 @@ public class BonusActivity extends AppCompatActivity {
             }
         });
 
-        departmentUpdate.setOnClickListener(new View.OnClickListener() {
+       /* departmentUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 performDepartmentUpdate();
             }
-        });
+        });*/
     }
 
     public void init() {
@@ -77,17 +76,17 @@ public class BonusActivity extends AppCompatActivity {
 
         percentageValue = (EditText) findViewById(R.id.percentageBonusValue);
 
-        legalValue = (EditText) findViewById(R.id.legalBonus);
+      /*  legalValue = (EditText) findViewById(R.id.legalBonus);
         prValue = (EditText) findViewById(R.id.prBonus);
         hrValue = (EditText) findViewById(R.id.hrBonus);
         logiValue = (EditText) findViewById(R.id.logisticsBonus);
         boardValue = (EditText) findViewById(R.id.boardBonus);
         marketingValue = (EditText) findViewById(R.id.marketingBonus);
         financeValue = (EditText) findViewById(R.id.financeBonus);
-
+*/
         singleUpdate = (Button) findViewById(R.id.singleBonusUpdate);
         percentageUpdate = (Button) findViewById(R.id.percentageBonusUpdate);
-        departmentUpdate = (Button) findViewById(R.id.departmentUpdateButton);
+        //      departmentUpdate = (Button) findViewById(R.id.departmentUpdateButton);
     }
 
     public void performSingleUpdate() {
@@ -101,6 +100,7 @@ public class BonusActivity extends AppCompatActivity {
         String updateBonus = "UPDATE " + SalaryTable.TABLE_NAME + " SET " + SalaryTable.Columns.BONUS + " = " + SalaryTable.Columns.BONUS + "+" + bonus
                 + " WHERE " + SalaryTable.Columns.EMPLOYEE_ID + " = " + employee + ";";
 
+        Log.d("bonus acctivity", updateBonus);
         queryList.add(updateBonus);
         database.execSQL(updateBonus);
 
@@ -144,65 +144,65 @@ public class BonusActivity extends AppCompatActivity {
 
     }
 
-    public void performDepartmentUpdate() {
+    /* public void performDepartmentUpdate() {
 
-        database = MyDatabase.getWritable(getApplicationContext());
-        queryList.clear();
+         database = MyDatabase.getWritable(getApplicationContext());
+         queryList.clear();
 
-        Integer legalBonus = 0, hrBonus = 0, prBonus = 0, marketingBonus = 0, logiBonus = 0, boardBonus = 0,
-                financeBonus = 0;
+         Integer legalBonus = 0, hrBonus = 0, prBonus = 0, marketingBonus = 0, logiBonus = 0, boardBonus = 0,
+                 financeBonus = 0;
 
-        if (!legalValue.getText().toString().isEmpty())
-            legalBonus = Integer.valueOf(legalValue.getText().toString().trim());
-        if (!hrValue.getText().toString().isEmpty())
-            hrBonus = Integer.valueOf(hrValue.getText().toString().trim());
-        if (!prValue.getText().toString().isEmpty())
-            prBonus = Integer.valueOf(prValue.getText().toString().trim());
-        if (!marketingValue.getText().toString().isEmpty())
-            marketingBonus = Integer.valueOf(marketingValue.getText().toString().trim());
-        if (!logiValue.getText().toString().isEmpty())
-            logiBonus = Integer.valueOf(logiValue.getText().toString().trim());
-        if (!boardValue.getText().toString().isEmpty())
-            boardBonus = Integer.valueOf(boardValue.getText().toString().trim());
-        if (!financeValue.getText().toString().isEmpty())
-            financeBonus = Integer.valueOf(financeValue.getText().toString().trim());
-
-
-        String legalQuery = "UPDATE " + SalaryTable.TABLE_NAME
-                + " JOIN " + DepartmentTable.TABLE_NAME + " ON "
-                + SalaryTable.TABLE_NAME + "." + SalaryTable.Columns.EMPLOYEE_ID + " = "
-                + DepartmentTable.TABLE_NAME + "." + DepartmentTable.Columns.EMPLOYEE_ID
-                + " SET " + SalaryTable.TABLE_NAME + "." + SalaryTable.Columns.BONUS + " = "
-                + SalaryTable.TABLE_NAME + "." + SalaryTable.Columns.BONUS + "+" + legalBonus
-                + " WHERE "
-                + DepartmentTable.TABLE_NAME + "." + DepartmentTable.Columns.NAME + " = " + departList.get(0) + ";";
+         if (!legalValue.getText().toString().isEmpty())
+             legalBonus = Integer.valueOf(legalValue.getText().toString().trim());
+         if (!hrValue.getText().toString().isEmpty())
+             hrBonus = Integer.valueOf(hrValue.getText().toString().trim());
+         if (!prValue.getText().toString().isEmpty())
+             prBonus = Integer.valueOf(prValue.getText().toString().trim());
+         if (!marketingValue.getText().toString().isEmpty())
+             marketingBonus = Integer.valueOf(marketingValue.getText().toString().trim());
+         if (!logiValue.getText().toString().isEmpty())
+             logiBonus = Integer.valueOf(logiValue.getText().toString().trim());
+         if (!boardValue.getText().toString().isEmpty())
+             boardBonus = Integer.valueOf(boardValue.getText().toString().trim());
+         if (!financeValue.getText().toString().isEmpty())
+             financeBonus = Integer.valueOf(financeValue.getText().toString().trim());
 
 
-        Log.d("legalQuery", legalQuery);
-
-        queryList.add(legalQuery);
-        database.execSQL(legalQuery);
-
-
-        try {
-            askToCreateFile(queryList);
-            ExportDatabase.Export();
-            Toast.makeText(getApplicationContext(), "Bonus Given", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+         String legalQuery = "UPDATE " + SalaryTable.TABLE_NAME
+                 + " JOIN " + DepartmentTable.TABLE_NAME + " ON "
+                 + SalaryTable.TABLE_NAME + "." + SalaryTable.Columns.EMPLOYEE_ID + " = "
+                 + DepartmentTable.TABLE_NAME + "." + DepartmentTable.Columns.EMPLOYEE_ID
+                 + " SET " + SalaryTable.TABLE_NAME + "." + SalaryTable.Columns.BONUS + " = "
+                 + SalaryTable.TABLE_NAME + "." + SalaryTable.Columns.BONUS + "+" + legalBonus
+                 + " WHERE "
+                 + DepartmentTable.TABLE_NAME + "." + DepartmentTable.Columns.NAME + " = " + departList.get(0) + ";";
 
 
-        legalValue.setText("");
-        hrValue.setText("");
-        prValue.setText("");
-        logiValue.setText("");
-        boardValue.setText("");
-        marketingValue.setText("");
-        financeValue.setText("");
+         Log.d("legalQuery", legalQuery);
 
-    }
+         queryList.add(legalQuery);
+         database.execSQL(legalQuery);
 
+
+         try {
+             askToCreateFile(queryList);
+             ExportDatabase.Export();
+             Toast.makeText(getApplicationContext(), "Bonus Given", Toast.LENGTH_SHORT).show();
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+
+
+         legalValue.setText("");
+         hrValue.setText("");
+         prValue.setText("");
+         logiValue.setText("");
+         boardValue.setText("");
+         marketingValue.setText("");
+         financeValue.setText("");
+
+     }
+ */
     public void askToCreateFile(ArrayList<String> sendData) throws IOException {
         Integer queryNumber = getPrefs();
         String fileName = "Query" + String.valueOf(queryNumber) + ".txt";

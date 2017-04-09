@@ -46,7 +46,6 @@
                 app:shadowEnabled="true" />
 
 
-
             <info.hoang8f.widget.FButton
                 android:id="@+id/removeEmployeeButton"
                 android:layout_width="150sp"
@@ -63,8 +62,6 @@
                 app:shadowEnabled="true" />
 
 
-
-
             <info.hoang8f.widget.FButton
                 android:id="@+id/bonusButton"
                 android:layout_width="150sp"
@@ -79,6 +76,7 @@
                 app:cornerRadius="10sp"
                 app:shadowColor="@color/fbutton_color_belize_hole"
                 app:shadowEnabled="true" />
+
             <info.hoang8f.widget.FButton
                 android:id="@+id/dispatchSalaryButton"
                 android:layout_width="150sp"
@@ -93,7 +91,6 @@
                 app:cornerRadius="10sp"
                 app:shadowColor="@color/fbutton_color_s2"
                 app:shadowEnabled="true" />
-
 
 
         </LinearLayout>
@@ -178,8 +175,6 @@
                 app:cornerRadius="10sp"
                 app:shadowColor="@color/fbutton_color_wisteria"
                 app:shadowEnabled="true" />
-
-
 
 
         </LinearLayout>

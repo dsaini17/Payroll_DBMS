@@ -16,7 +16,7 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="5sp"
+            android:layout_marginTop="20sp"
             app:cardBackgroundColor="@color/cardview_light_background"
             app:cardCornerRadius="10sp"
             app:cardElevation="5sp">
@@ -30,6 +30,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
                     android:text="Give Bonus To a Single Employee"
                     android:textColor="@color/colorBlack"
                     android:textSize="20sp" />
@@ -37,6 +38,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
                     android:orientation="horizontal">
 
                     <EditText
@@ -64,6 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginTop="10sp"
                     android:background="@drawable/button_style1"
                     android:text="UPDATE"
                     android:textColor="@drawable/button_style1_text" />
@@ -73,7 +76,7 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="5sp"
+            android:layout_marginTop="20sp"
             app:cardBackgroundColor="@color/cardview_light_background"
             app:cardCornerRadius="10sp"
             app:cardElevation="5sp">
@@ -87,6 +90,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
                     android:text="Give Bonus According To Salary"
                     android:textColor="@color/colorBlack"
                     android:textSize="20sp" />
@@ -95,6 +99,7 @@
                     android:id="@+id/percentageBonusValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
                     android:hint="PERCENTAGE BONUS"
                     android:inputType="numberDecimal"
                     android:textColor="@color/colorPrimary" />
@@ -104,6 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginTop="10sp"
                     android:background="@drawable/button_style1"
                     android:text="UPDATE"
                     android:textColor="@drawable/button_style1_text" />
@@ -112,215 +118,215 @@
 
         </android.support.v7.widget.CardView>
 
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5sp"
-            app:cardBackgroundColor="@color/cardview_light_background"
-            app:cardCornerRadius="10sp"
-            app:cardElevation="5sp">
-
-            <LinearLayout
+        <!--
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10sp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Give Bonus According To Department"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="20sp" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="5sp"
+                app:cardBackgroundColor="@color/cardview_light_background"
+                app:cardCornerRadius="10sp"
+                app:cardElevation="5sp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical"
+                    android:padding="10sp">
 
                     <TextView
-                        android:layout_width="150sp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="LEGAL"
-                        android:textAlignment="center"
-                        android:textColor="@color/actionRed"
-                        android:textSize="18sp" />
-
-                    <EditText
-                        android:id="@+id/legalBonus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="BONUS"
-                        android:inputType="number"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack" />
-                </LinearLayout>
+                        android:text="Give Bonus According To Department"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="20sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="150sp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="FINANCE"
-                        android:textAlignment="center"
-                        android:textColor="@color/actionRed"
-                        android:textSize="18sp" />
+                        android:orientation="horizontal">
 
-                    <EditText
-                        android:id="@+id/financeBonus"
+                        <TextView
+                            android:layout_width="150sp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="LEGAL"
+                            android:textAlignment="center"
+                            android:textColor="@color/actionRed"
+                            android:textSize="18sp" />
+
+                        <EditText
+                            android:id="@+id/legalBonus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="BONUS"
+                            android:inputType="number"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBlack" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="150sp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="FINANCE"
+                            android:textAlignment="center"
+                            android:textColor="@color/actionRed"
+                            android:textSize="18sp" />
+
+                        <EditText
+                            android:id="@+id/financeBonus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="BONUS"
+                            android:inputType="number"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBlack" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="150sp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="MARKETING"
+                            android:textAlignment="center"
+                            android:textColor="@color/actionRed"
+                            android:textSize="18sp" />
+
+                        <EditText
+                            android:id="@+id/marketingBonus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="BONUS"
+                            android:inputType="number"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBlack" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="150sp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="LOGISTICS"
+                            android:textAlignment="center"
+                            android:textColor="@color/actionRed"
+                            android:textSize="18sp" />
+
+                        <EditText
+                            android:id="@+id/logisticsBonus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="BONUS"
+                            android:inputType="number"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBlack" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="150sp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="BOARD"
+                            android:textAlignment="center"
+                            android:textColor="@color/actionRed"
+                            android:textSize="18sp" />
+
+                        <EditText
+                            android:id="@+id/boardBonus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="BONUS"
+                            android:inputType="number"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBlack" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="150sp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="HUMAN RELATIONS"
+                            android:textAlignment="center"
+                            android:textColor="@color/actionRed"
+                            android:textSize="18sp" />
+
+                        <EditText
+                            android:id="@+id/hrBonus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="BONUS"
+                            android:inputType="number"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBlack" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="150sp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="PUBLIC RELATIONS"
+                            android:textAlignment="center"
+                            android:textColor="@color/actionRed"
+                            android:textSize="18sp" />
+
+                        <EditText
+                            android:id="@+id/prBonus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="BONUS"
+                            android:inputType="number"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBlack" />
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/departmentUpdateButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="BONUS"
-                        android:inputType="number"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack" />
+                        android:layout_gravity="center"
+                        android:background="@drawable/button_style1"
+                        android:text="UPDATE"
+                        android:textColor="@drawable/button_style1_text" />
+
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="150sp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="MARKETING"
-                        android:textAlignment="center"
-                        android:textColor="@color/actionRed"
-                        android:textSize="18sp" />
-
-                    <EditText
-                        android:id="@+id/marketingBonus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="BONUS"
-                        android:inputType="number"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="150sp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="LOGISTICS"
-                        android:textAlignment="center"
-                        android:textColor="@color/actionRed"
-                        android:textSize="18sp" />
-
-                    <EditText
-                        android:id="@+id/logisticsBonus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="BONUS"
-                        android:inputType="number"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="150sp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="BOARD"
-                        android:textAlignment="center"
-                        android:textColor="@color/actionRed"
-                        android:textSize="18sp" />
-
-                    <EditText
-                        android:id="@+id/boardBonus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="BONUS"
-                        android:inputType="number"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="150sp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="HUMAN RELATIONS"
-                        android:textAlignment="center"
-                        android:textColor="@color/actionRed"
-                        android:textSize="18sp" />
-
-                    <EditText
-                        android:id="@+id/hrBonus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="BONUS"
-                        android:inputType="number"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="150sp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="PUBLIC RELATIONS"
-                        android:textAlignment="center"
-                        android:textColor="@color/actionRed"
-                        android:textSize="18sp" />
-
-                    <EditText
-                        android:id="@+id/prBonus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="BONUS"
-                        android:inputType="number"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorBlack" />
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/departmentUpdateButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/button_style1"
-                    android:text="UPDATE"
-                    android:textColor="@drawable/button_style1_text" />
-
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
+            </android.support.v7.widget.CardView>
+    -->
     </LinearLayout>
 </ScrollView>

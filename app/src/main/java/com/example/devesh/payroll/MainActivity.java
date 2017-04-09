@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements giveLoanDialog.Di
     SQLiteDatabase currDatabase;
     FButton addEmployeeButton, allEmployeeButton, bonusButton, giveLoanButton, removeLoanButton, viewLoanButton,
             enterAttendanceButton, viewAttendanceButton, removeEmloyeeButton,
-            dispatchSalaryButton ;
+            dispatchSalaryButton;
     ArrayList<String> queryList;
     ArrayList<String> departmentList;
 
@@ -267,13 +267,14 @@ public class MainActivity extends AppCompatActivity implements giveLoanDialog.Di
                             LoanTable.Columns.PRINCIPAL + " = " + LoanTable.Columns.PRINCIPAL + " - " +
                             arg2 + " WHERE " + LoanTable.Columns.EMPLOYEE_ID + " = " + arg1 + " ; ";
                     currDatabase.execSQL(updateQuery);
-
+                    Log.d("loanQuery", updateQuery);
                     queryList.add(updateQuery);
                 } else {
 
                     String deleteQuery = "DELETE FROM " + LoanTable.TABLE_NAME + " WHERE " +
                             LoanTable.Columns.EMPLOYEE_ID + " = " + arg1 + " ; ";
 
+                    Log.d("loanQuery", deleteQuery);
                     currDatabase.execSQL(deleteQuery);
                     queryList.add(deleteQuery);
 

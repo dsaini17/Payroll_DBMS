@@ -107,24 +107,41 @@ public class DispatchSalaryActivity extends AppCompatActivity {
                     }
                 }
 
+                Log.d(TAG, "basic salary = " + salary);
+
                 Integer alpha = (salary / 100) * 84;
 
                 Integer beta = (salary / 100) * 6;
 
                 float interest = (principal * rate) / 1200;
 
+                Log.d(TAG, "after tax = " + alpha);
+
                 Integer Salary_now = alpha - (int) interest;
 
-                Float val;
+                Log.d(TAG, "interest = " + interest + " after interet = " + Salary_now);
 
-                if (total == 0) {
-                    val = Float.valueOf(1);
-                } else {
-                    val = Float.valueOf(present / total);
-                }
+                Float val = Float.valueOf(1);
+
+
+                Log.d(TAG, "attendance val= " + val);
 
                 Integer Salary_new = (int) (Salary_now * val);
+
+                float sal = Float.valueOf(Salary_new);
+
+                if (total != 0) {
+                    sal = sal / total;
+                    sal = sal * present;
+                }
+
+                Salary_new = (int) sal;
+
+
+                Log.d(TAG, "salary after attendance = " + Salary_new);
                 Integer finalSalary = Salary_new + bonus;
+
+                Log.d(TAG, "with bonus = " + finalSalary);
 
                 if (finalSalary <= 0) {
                     finalSalary = 100;
