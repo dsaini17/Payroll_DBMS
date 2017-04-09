@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.FloatRange;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
@@ -21,11 +20,6 @@ import com.example.devesh.payroll.R;
 public class giveLoanDialog extends DialogFragment {
 
     Context myContext;
-
-    public interface DialogListener{
-        public void OnPositiveClick(Bundle args);
-    }
-
     DialogListener dialogListener;
 
     @Override
@@ -39,9 +33,9 @@ public class giveLoanDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        View view = getActivity().getLayoutInflater().inflate(R.layout.give_loan_diaolg,null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.give_loan_diaolg, null);
 
-        final EditText id,amount,rate;
+        final EditText id, amount, rate;
 
         id = (EditText) view.findViewById(R.id.loanID);
         amount = (EditText) view.findViewById(R.id.loanAmount);
@@ -56,24 +50,24 @@ public class giveLoanDialog extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                if(id.getText().toString().trim().isEmpty())
-                    Toast.makeText(getActivity().getApplicationContext(),"ENTER ID",Toast.LENGTH_SHORT).show();
-                else{
-                    if(amount.getText().toString().trim().isEmpty())
-                        Toast.makeText(getActivity().getApplicationContext(),"ENTER AMOUNT",Toast.LENGTH_SHORT).show();
-                    else{
-                        if(rate.getText().toString().trim().isEmpty())
-                            Toast.makeText(getActivity().getApplicationContext(),"ENTER RATE",Toast.LENGTH_SHORT).show();
-                        else{
+                if (id.getText().toString().trim().isEmpty())
+                    Toast.makeText(getActivity().getApplicationContext(), "ENTER ID", Toast.LENGTH_SHORT).show();
+                else {
+                    if (amount.getText().toString().trim().isEmpty())
+                        Toast.makeText(getActivity().getApplicationContext(), "ENTER AMOUNT", Toast.LENGTH_SHORT).show();
+                    else {
+                        if (rate.getText().toString().trim().isEmpty())
+                            Toast.makeText(getActivity().getApplicationContext(), "ENTER RATE", Toast.LENGTH_SHORT).show();
+                        else {
                             Integer eid = Integer.valueOf(id.getText().toString().trim());
                             Integer loan = Integer.valueOf(amount.getText().toString().trim());
                             Float rat = Float.valueOf(rate.getText().toString().trim());
 
                             Bundle bundle = new Bundle();
 
-                            bundle.putInt("eid",eid);
-                            bundle.putInt("loan",loan);
-                            bundle.putFloat("rate",rat);
+                            bundle.putInt("eid", eid);
+                            bundle.putInt("loan", loan);
+                            bundle.putFloat("rate", rat);
 
                             dialogListener.OnPositiveClick(bundle);
                         }
@@ -90,5 +84,9 @@ public class giveLoanDialog extends DialogFragment {
         });
 
         return builder.create();
+    }
+
+    public interface DialogListener {
+        public void OnPositiveClick(Bundle args);
     }
 }

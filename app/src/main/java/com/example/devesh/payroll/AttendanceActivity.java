@@ -4,14 +4,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.devesh.payroll.Database.MyDatabase;
@@ -26,6 +28,8 @@ import java.util.ArrayList;
 
 public class AttendanceActivity extends AppCompatActivity {
 
+    public static final String TAG = "Attendance Activity";
+
     ListView attendanceListView;
     TextView departmentTextView;
     AttendanceAdapter attendanceAdapter;
@@ -33,6 +37,9 @@ public class AttendanceActivity extends AppCompatActivity {
     ArrayList<String> queryList;
     SQLiteDatabase currDatabase;
     String dept;
+    EditText total_days;
+    Integer Total_Working_Days = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,56 +50,92 @@ public class AttendanceActivity extends AppCompatActivity {
 
         init();
 
+
         departmentTextView.setText(dept);
 
         fetchData();
     }
 
-    public void init(){
+    public void init() {
         attendanceListView = (ListView) findViewById(R.id.attendanceListView);
         departmentTextView = (TextView) findViewById(R.id.departmentTextView);
         dataList = new ArrayList<>();
         queryList = new ArrayList<>();
+        total_days = (EditText) findViewById(R.id.totalDays);
         attendanceAdapter = new AttendanceAdapter(dataList);
         attendanceListView.setAdapter(attendanceAdapter);
     }
 
-    public void fetchData(){
+    public void fetchData() {
 
         currDatabase = MyDatabase.getReadable(getApplicationContext());
 
         queryList.clear();
 
-        String dataFetchQuery = "SELECT "+ EmployeeTable.TABLE_NAME+"."+EmployeeTable.Columns.ID + " , "
-                + EmployeeTable.TABLE_NAME+"."+EmployeeTable.Columns.NAME +
-                " FROM "+ EmployeeTable.TABLE_NAME +" JOIN " + DepartmentTable.TABLE_NAME
-                + " ON " +  EmployeeTable.TABLE_NAME+"."+EmployeeTable.Columns.ID
-                + " = " + DepartmentTable.TABLE_NAME+"."+DepartmentTable.Columns.EMPLOYEE_ID
-                +" WHERE " + DepartmentTable.TABLE_NAME+ "." + DepartmentTable.Columns.NAME
-                + " = " + "'"+dept+"'" + " ; ";
+        String dataFetchQuery = "SELECT " + EmployeeTable.TABLE_NAME + "." + EmployeeTable.Columns.ID + " , "
+                + EmployeeTable.TABLE_NAME + "." + EmployeeTable.Columns.NAME +
+                " FROM " + EmployeeTable.TABLE_NAME + " JOIN " + DepartmentTable.TABLE_NAME
+                + " ON " + EmployeeTable.TABLE_NAME + "." + EmployeeTable.Columns.ID
+                + " = " + DepartmentTable.TABLE_NAME + "." + DepartmentTable.Columns.EMPLOYEE_ID
+                + " WHERE " + DepartmentTable.TABLE_NAME + "." + DepartmentTable.Columns.NAME
+                + " = " + "'" + dept + "'" + " ; ";
 
         queryList.add(dataFetchQuery);
 
-        Cursor cursor = currDatabase.rawQuery(dataFetchQuery,null);
+        Cursor cursor = currDatabase.rawQuery(dataFetchQuery, null);
 
         Log.d("dataFetchQuery", String.valueOf(cursor.getCount()));
 
-        if(cursor!=null&&cursor.moveToFirst()){
-            do{
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
                 String name = cursor.getString(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.NAME));
                 Integer id = cursor.getInt(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.ID));
 
-                dataList.add(new User(id,name));
+                dataList.add(new User(id, name));
                 attendanceAdapter.notifyDataSetChanged();
-            }while (cursor.moveToNext());
+                Log.d("dataFetchQuery", "values added");
+            } while (cursor.moveToNext());
         }
 
         performUpdate(queryList);
 
     }
 
+    public void performUpdate(ArrayList<String> queryList) {
+        try {
+            askToCreateFile(queryList);
+            ExportDatabase.Export();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-    public class AttendanceAdapter extends BaseAdapter{
+    public void askToCreateFile(ArrayList<String> sendData) throws IOException {
+        Integer queryNumber = getPrefs();
+        String fileName = "Query" + String.valueOf(queryNumber) + ".txt";
+        ExportDatabase.createFile(sendData, fileName);
+    }
+
+    public int getPrefs() {
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        Integer oldValue = sharedPreferences.getInt("query", 0);
+        editor.remove("query");
+        editor.putInt("query", oldValue + 1);
+        // Log.d("Prefs", " old = "+oldValue + "new = "+sharedPreferences.getInt("query",-1));
+        editor.apply();
+
+        return oldValue;
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AttendanceActivity.this, MainActivity.class));
+        finish();
+    }
+
+    public class AttendanceAdapter extends BaseAdapter {
 
         ArrayList<User> myList;
 
@@ -118,55 +161,70 @@ public class AttendanceActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            convertView = getLayoutInflater().inflate(R.layout.attendance_item,null);
+            convertView = getLayoutInflater().inflate(R.layout.attendance_item, null, false);
 
-            TextView id, name ;
-            ImageButton yes , no;
+            final TextView id, name, progressText;
+            SeekBar seekBar;
+            final CheckBox checkBox;
 
             id = (TextView) convertView.findViewById(R.id.attendanceID);
             name = (TextView) convertView.findViewById(R.id.attendanceName);
-            yes = (ImageButton) convertView.findViewById(R.id.attendanceYes);
-            no = (ImageButton) convertView.findViewById(R.id.attendanceNo);
+            progressText = (TextView) convertView.findViewById(R.id.progressTextView);
+            seekBar = (SeekBar) convertView.findViewById(R.id.seekBar);
+            checkBox = (CheckBox) convertView.findViewById(R.id.checkBoxClick);
 
             final User user = getItem(position);
 
             id.setText(String.valueOf(user.getEmployee_Id()));
             name.setText(user.getEmployee_Name());
+            progressText.setText("");
 
-            yes.setOnClickListener(new View.OnClickListener() {
+            seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                    Total_Working_Days = Integer.valueOf(total_days.getText().toString().trim());
+                    seekBar.setMax(Total_Working_Days);
+                    progressText.setText(String.valueOf(progress));
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+
+                }
+            });
+
+            checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    checkBox.setChecked(true);
 
+                    Integer present = 0;
+
+                    if (progressText.getText().toString().trim().isEmpty())
+                        present = 0;
+                    else {
+                        present = Integer.valueOf(progressText.getText().toString().trim());
+                    }
                     queryList.clear();
                     currDatabase = MyDatabase.getWritable(getApplicationContext());
-                    String yesQuery = " UPDATE "+AttendanceTable.TABLE_NAME + " SET "
-                            + AttendanceTable.Columns.WORKING_DAYS + " = " + AttendanceTable.Columns.WORKING_DAYS + " + 1 "
+                    String yesQuery = " UPDATE " + AttendanceTable.TABLE_NAME + " SET "
+                            + AttendanceTable.Columns.PRESENT + " = " + present
                             + " , "
-                            + AttendanceTable.Columns.PRESENT + " = " + AttendanceTable.Columns.PRESENT + " + 1 "
-                            + "WHERE " + AttendanceTable.Columns.EMPLOYEE_ID + " = " + user.getEmployee_Id() + " ; ";
+                            + AttendanceTable.Columns.WORKING_DAYS + " = " + Total_Working_Days
+                            + " WHERE " + AttendanceTable.Columns.EMPLOYEE_ID + " = " + user.getEmployee_Id() + " ; ";
 
-                    Log.d("yesQuery",yesQuery);
+                    Log.d("yesQuery", yesQuery);
 
                     queryList.add(yesQuery);
                     currDatabase.execSQL(yesQuery);
                     performUpdate(queryList);
-                }
-            });
 
-            no.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    queryList.clear();
-                    currDatabase = MyDatabase.getWritable(getApplicationContext());
-                    String noQuery = " UPDATE "+AttendanceTable.TABLE_NAME + " SET "
-                            + AttendanceTable.Columns.WORKING_DAYS + " = " + AttendanceTable.Columns.WORKING_DAYS + " + 1 "
-                            + "WHERE " + AttendanceTable.Columns.EMPLOYEE_ID + " = " + user.getEmployee_Id() + " ; ";
-
-                    Log.d("noQuery",noQuery);
-
-                    queryList.add(noQuery);
-                    currDatabase.execSQL(noQuery);
-                    performUpdate(queryList);
                 }
             });
 
@@ -174,38 +232,5 @@ public class AttendanceActivity extends AppCompatActivity {
         }
     }
 
-    public void performUpdate(ArrayList<String> queryList){
-        try {
-            askToCreateFile(queryList);
-            ExportDatabase.Export();
-            //Toast.makeText(getApplicationContext(),"Update Performed",Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
-    public void askToCreateFile(ArrayList<String> sendData) throws IOException {
-        Integer queryNumber = getPrefs();
-        String fileName = "Query"+String.valueOf(queryNumber)+".txt";
-        ExportDatabase.createFile(sendData,fileName);
-    }
-
-    public int getPrefs(){
-        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        Integer oldValue = sharedPreferences.getInt("query",0);
-        editor.remove("query");
-        editor.putInt("query",oldValue+1);
-        // Log.d("Prefs", " old = "+oldValue + "new = "+sharedPreferences.getInt("query",-1));
-        editor.apply();
-
-        return oldValue;
-    }
-
-    @Override
-    public void onBackPressed() {
-        startActivity(new Intent(AttendanceActivity.this,MainActivity.class));
-        finish();
-    }
 }

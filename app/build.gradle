@@ -33,6 +33,7 @@ dependencies {
     compile 'info.hoang8f:fbutton:1.0.5'
     compile 'de.codecrafters.tableview:tableview:2.5.0'
     compile 'com.github.Q42:AndroidScrollingImageView:1.2'
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     compile 'com.github.tibolte:elasticdownload:1.0.+'
     testCompile 'junit:junit:4.12'
 }

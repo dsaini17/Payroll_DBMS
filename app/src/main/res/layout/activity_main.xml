@@ -25,11 +25,10 @@
                 android:text="ADD EMPLOYEE"
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp"
-                app:cornerRadius="10sp"
                 app:buttonColor="@color/fbutton_color_turquoise"
+                app:cornerRadius="10sp"
                 app:shadowColor="@color/fbutton_color_green_sea"
-                app:shadowEnabled="true"
-                />
+                app:shadowEnabled="true" />
 
             <info.hoang8f.widget.FButton
                 android:id="@+id/allEmployeeButton"
@@ -40,25 +39,12 @@
                 android:text="list all employees"
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp"
-                app:cornerRadius="10sp"
-                
                 app:buttonColor="@color/fbutton_color_sun_flower"
+
+                app:cornerRadius="10sp"
                 app:shadowColor="@color/fbutton_color_orange"
                 app:shadowEnabled="true" />
 
-            <info.hoang8f.widget.FButton
-                android:id="@+id/modifyEmployeeButton"
-                android:layout_width="150sp"
-                android:layout_height="60sp"
-                android:layout_gravity="center"
-                android:layout_margin="15sp"
-                android:text="Modify employee"
-                android:textColor="@color/colorWhite"
-                android:textSize="15sp"
-                app:cornerRadius="10sp"
-                app:buttonColor="@color/fbutton_color_alizarin"
-                app:shadowColor="@color/fbutton_color_pumpkin"
-                app:shadowEnabled="true" />
 
 
             <info.hoang8f.widget.FButton
@@ -70,26 +56,13 @@
                 android:text="REMOVE EMPLOYEE"
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp"
-                app:cornerRadius="10sp"
-
-                app:buttonColor="@color/fbutton_color_c4"
-                app:shadowColor="@color/fbutton_color_s4"
-                app:shadowEnabled="true" />
-
-            <info.hoang8f.widget.FButton
-                android:id="@+id/statsButton"
-                android:layout_width="150sp"
-                android:layout_height="60sp"
-                android:layout_gravity="center"
-                android:layout_margin="15sp"
-                android:text="statistics"
-                android:textColor="@color/colorWhite"
-                android:textSize="15sp"
-                app:cornerRadius="10sp"
-
                 app:buttonColor="@color/fbutton_color_c3"
+
+                app:cornerRadius="10sp"
                 app:shadowColor="@color/fbutton_color_s3"
                 app:shadowEnabled="true" />
+
+
 
 
             <info.hoang8f.widget.FButton
@@ -101,12 +74,25 @@
                 android:text="GIVE BONUS"
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp"
-                app:cornerRadius="10sp"
-                
                 app:buttonColor="@color/fbutton_color_peter_river"
+
+                app:cornerRadius="10sp"
                 app:shadowColor="@color/fbutton_color_belize_hole"
                 app:shadowEnabled="true" />
+            <info.hoang8f.widget.FButton
+                android:id="@+id/dispatchSalaryButton"
+                android:layout_width="150sp"
+                android:layout_height="60sp"
+                android:layout_gravity="center"
+                android:layout_margin="15sp"
+                android:text="Dispatch Salaries"
+                android:textColor="@color/colorWhite"
+                android:textSize="15sp"
+                app:buttonColor="@color/fbutton_color_c2"
 
+                app:cornerRadius="10sp"
+                app:shadowColor="@color/fbutton_color_s2"
+                app:shadowEnabled="true" />
 
 
 
@@ -127,9 +113,9 @@
                 android:text="Give Loan"
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp"
-                app:cornerRadius="10sp"
-
                 app:buttonColor="@color/fbutton_color_c1"
+
+                app:cornerRadius="10sp"
                 app:shadowColor="@color/fbutton_color_s1"
                 app:shadowEnabled="true" />
 
@@ -142,9 +128,9 @@
                 android:text="REMOVE LOAN"
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp"
-                app:cornerRadius="10sp"
-
                 app:buttonColor="@color/fbutton_color_emerald"
+
+                app:cornerRadius="10sp"
                 app:shadowColor="@color/fbutton_color_nephritis"
                 app:shadowEnabled="true" />
 
@@ -157,9 +143,9 @@
                 android:text="VIEW LOANS"
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp"
-                app:cornerRadius="10sp"
-                
                 app:buttonColor="@color/fbutton_color_wet_asphalt"
+
+                app:cornerRadius="10sp"
                 app:shadowColor="@color/fbutton_color_midnight_blue"
                 app:shadowEnabled="true" />
 
@@ -172,9 +158,9 @@
                 android:text="ENTER ATTENDANCE"
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp"
-                app:cornerRadius="10sp"
-                
                 app:buttonColor="@color/fbutton_color_concrete"
+
+                app:cornerRadius="10sp"
                 app:shadowColor="@color/fbutton_color_asbestos"
                 app:shadowEnabled="true" />
 
@@ -187,25 +173,10 @@
                 android:text="VIEW ATTENDANCE"
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp"
-                app:cornerRadius="10sp"
-                
                 app:buttonColor="@color/fbutton_color_amethyst"
-                app:shadowColor="@color/fbutton_color_wisteria"
-                app:shadowEnabled="true" />
 
-            <info.hoang8f.widget.FButton
-                android:id="@+id/dispatchSalaryButton"
-                android:layout_width="150sp"
-                android:layout_height="60sp"
-                android:layout_gravity="center"
-                android:layout_margin="15sp"
-                android:text="Dispatch Salaries"
-                android:textColor="@color/colorWhite"
-                android:textSize="15sp"
                 app:cornerRadius="10sp"
-                
-                app:buttonColor="@color/fbutton_color_c2"
-                app:shadowColor="@color/fbutton_color_s2"
+                app:shadowColor="@color/fbutton_color_wisteria"
                 app:shadowEnabled="true" />
 
 

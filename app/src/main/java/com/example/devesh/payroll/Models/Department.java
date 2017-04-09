@@ -16,24 +16,7 @@ public class Department {
         Name = name;
     }
 
-    public Integer getDepartment_ID() {
-        return Department_ID;
-    }
-
-    public void setDepartment_ID(Integer department_ID) {
-        Department_ID = department_ID;
-    }
-
-    public String getName() {
-        return Name;
-    }
-
-    public void setName(String name) {
-        Name = name;
-    }
-
-
-    public static ArrayList<String> getAllDepartments(){
+    public static ArrayList<String> getAllDepartments() {
         ArrayList<String> departmentList = new ArrayList<>();
 
 //        CharSequence[] charSequences = new CharSequence[]{
@@ -49,19 +32,35 @@ public class Department {
         departmentList.add("Logistics");
 
 //        return charSequences;
-        return  departmentList;
+        return departmentList;
     }
 
-    public static ArrayList<Department> getAllDepartmentInfo(){
+    public static ArrayList<Department> getAllDepartmentInfo() {
         ArrayList<Department> deptList = new ArrayList<>();
-        deptList.add(new Department(1,"Legal"));
-        deptList.add(new Department(2,"Public Relations"));
-        deptList.add(new Department(3,"Marketing"));
-        deptList.add(new Department(4,"Finance"));
-        deptList.add(new Department(5,"Human Resource"));
-        deptList.add(new Department(6,"Board"));
-        deptList.add(new Department(7,"Logistics"));
+        deptList.add(new Department(1, "Legal"));
+        deptList.add(new Department(2, "Public Relations"));
+        deptList.add(new Department(3, "Marketing"));
+        deptList.add(new Department(4, "Finance"));
+        deptList.add(new Department(5, "Human Resource"));
+        deptList.add(new Department(6, "Board"));
+        deptList.add(new Department(7, "Logistics"));
 
         return deptList;
+    }
+
+    public Integer getDepartment_ID() {
+        return Department_ID;
+    }
+
+    public void setDepartment_ID(Integer department_ID) {
+        Department_ID = department_ID;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
     }
 }

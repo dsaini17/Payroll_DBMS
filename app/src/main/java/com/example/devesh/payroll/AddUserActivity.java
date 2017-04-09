@@ -5,9 +5,8 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,13 +25,9 @@ import com.example.devesh.payroll.Tables.EmployeeTable;
 import com.example.devesh.payroll.Tables.SalaryTable;
 import com.example.devesh.payroll.Tables.TaxTable;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static com.example.devesh.payroll.R.id.employeeID;
 import static com.example.devesh.payroll.R.id.userAddButton;
 
 public class AddUserActivity extends AppCompatActivity {
@@ -42,7 +37,7 @@ public class AddUserActivity extends AppCompatActivity {
 
     public static final String NEW_LINE = "\n";
 
-    EditText userName, userAddress , userEmailAddress , userSalary , userContact ;
+    EditText userName, userAddress, userEmailAddress, userSalary, userContact;
     Integer spinnerPosition;
     Spinner departmentName;
     Button addUserButton;
@@ -63,11 +58,11 @@ public class AddUserActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                ((TextView)parent.getChildAt(0)).setTextColor(Color.BLACK);
-                ((TextView)parent.getChildAt(0)).setTextSize(20);
+                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
+                ((TextView) parent.getChildAt(0)).setTextSize(20);
 
                 String value = (String) parent.getItemAtPosition(position);
-                Log.d(TAG,value);
+                Log.d(TAG, value);
                 spinnerPosition = position;
             }
 
@@ -87,7 +82,7 @@ public class AddUserActivity extends AppCompatActivity {
 
     }
 
-    public void init(){
+    public void init() {
         database = MyDatabase.getReadable(getApplicationContext());
         userName = (EditText) findViewById(R.id.userName);
         userAddress = (EditText) findViewById(R.id.userAddress);
@@ -103,12 +98,12 @@ public class AddUserActivity extends AppCompatActivity {
 
         departmentArrayList = Department.getAllDepartmentInfo();
         departmentNameList = Department.getAllDepartments();
-        arrayAdapter = ArrayAdapter.createFromResource(getApplicationContext(),R.array.department_array,android.R.layout.simple_spinner_item);
+        arrayAdapter = ArrayAdapter.createFromResource(getApplicationContext(), R.array.department_array, android.R.layout.simple_spinner_item);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         departmentName.setAdapter(arrayAdapter);
     }
 
-    public void perform_Updation(){
+    public void perform_Updation() {
         String name = userName.getText().toString().trim();
         String address = userAddress.getText().toString().trim();
         String email = userEmailAddress.getText().toString().trim();
@@ -116,67 +111,67 @@ public class AddUserActivity extends AppCompatActivity {
         String contact = userContact.getText().toString().trim();
         Integer salary = Integer.parseInt(userSalary.getText().toString().trim());
 
-        Log.d(TAG,spinnerPosition + " " + department);
+        Log.d(TAG, spinnerPosition + " " + department);
 
         database = MyDatabase.getWritable(getApplicationContext());
 
-        String employeeQuery = " INSERT INTO "+ EmployeeTable.TABLE_NAME + " ( "+ EmployeeTable.Columns.NAME + ","
+        String employeeQuery = " INSERT INTO " + EmployeeTable.TABLE_NAME + " ( " + EmployeeTable.Columns.NAME + ","
                 + EmployeeTable.Columns.ADDRESS + ","
                 + EmployeeTable.Columns.EMAIL + ","
                 + EmployeeTable.Columns.CONTACT + " ) "
-                + " VALUES ( "+ "'" +name+"'" + ","+ "'" +address+"'" + "," + "'" +email+"'" + ","
-                + "'" + contact + "'" +" ) ; ";
+                + " VALUES ( " + "'" + name + "'" + "," + "'" + address + "'" + "," + "'" + email + "'" + ","
+                + "'" + contact + "'" + " ) ; ";
 
-        Log.d(TAG,employeeQuery);
+        Log.d(TAG, employeeQuery);
         database.execSQL(employeeQuery);
         querySaveList.add(employeeQuery);
 
-        Cursor cursor = database.rawQuery("SELECT * FROM "+EmployeeTable.TABLE_NAME+";",null);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + EmployeeTable.TABLE_NAME + ";", null);
 
-       boolean ifRowPresent = cursor.moveToLast();
+        boolean ifRowPresent = cursor.moveToLast();
 
         //Log.v(TAG, String.valueOf(cursor.getInt(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.ID))));
 
         Integer last_Id = 0;
-        if(ifRowPresent) {
+        if (ifRowPresent) {
             last_Id = cursor.getInt(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.ID));
             Log.d(TAG, "ID is = " + last_Id);
         }
 
 
-        String salaryQuery = " INSERT INTO "+ SalaryTable.TABLE_NAME + " VALUES "
+        String salaryQuery = " INSERT INTO " + SalaryTable.TABLE_NAME + " VALUES "
                 + " ( " + last_Id + " , "
                 + salary + ","
                 + 0 + " );";
 
-        Log.d(TAG,salaryQuery);
+        Log.d(TAG, salaryQuery);
         database.execSQL(salaryQuery);
         querySaveList.add(salaryQuery);
 
         Department currDepartment = departmentArrayList.get(spinnerPosition);
-        String departmentQuery = " INSERT INTO "+ DepartmentTable.TABLE_NAME + " VALUES ( "
+        String departmentQuery = " INSERT INTO " + DepartmentTable.TABLE_NAME + " VALUES ( "
                 + last_Id + ","
                 + "'" + currDepartment.getName() + "'" + " , "
                 + currDepartment.getDepartment_ID() + " ); ";
 
-        Log.d(TAG,departmentQuery);
+        Log.d(TAG, departmentQuery);
         database.execSQL(departmentQuery);
         querySaveList.add(departmentQuery);
 
-        String taxQuery = " INSERT INTO "+ TaxTable.TABLE_NAME + " VALUES ( "
+        String taxQuery = " INSERT INTO " + TaxTable.TABLE_NAME + " VALUES ( "
                 + last_Id + ","
                 + 0 + " );";
 
-        Log.d(TAG,taxQuery);
+        Log.d(TAG, taxQuery);
         database.execSQL(taxQuery);
         querySaveList.add(taxQuery);
 
-        String attendanceQuery = " INSERT INTO "+ AttendanceTable.TABLE_NAME + " VALUES ( "
+        String attendanceQuery = " INSERT INTO " + AttendanceTable.TABLE_NAME + " VALUES ( "
                 + last_Id + ","
                 + 0 + ","
                 + 0 + " );";
 
-        Log.d(TAG,attendanceQuery);
+        Log.d(TAG, attendanceQuery);
         database.execSQL(attendanceQuery);
         querySaveList.add(attendanceQuery);
 
@@ -186,28 +181,28 @@ public class AddUserActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        startActivity(new Intent(AddUserActivity.this,MainActivity.class));
+        startActivity(new Intent(AddUserActivity.this, MainActivity.class));
     }
 
     public void askToCreateFile(ArrayList<String> sendData) throws IOException {
         Integer queryNumber = getPrefs();
-        String fileName = "Query"+String.valueOf(queryNumber)+".txt";
-        ExportDatabase.createFile(sendData,fileName);
+        String fileName = "Query" + String.valueOf(queryNumber) + ".txt";
+        ExportDatabase.createFile(sendData, fileName);
     }
 
-    public int getPrefs(){
+    public int getPrefs() {
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        Integer oldValue = sharedPreferences.getInt("query",0);
+        Integer oldValue = sharedPreferences.getInt("query", 0);
         editor.remove("query");
-        editor.putInt("query",oldValue+1);
+        editor.putInt("query", oldValue + 1);
         editor.apply();
         return oldValue;
     }
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(AddUserActivity.this,MainActivity.class));
+        startActivity(new Intent(AddUserActivity.this, MainActivity.class));
         finish();
     }
 }

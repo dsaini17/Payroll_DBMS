@@ -2,7 +2,6 @@ package com.example.devesh.payroll.Dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -20,10 +19,6 @@ import com.example.devesh.payroll.R;
 public class removeLoanDialog extends DialogFragment {
 
 
-    public interface DialogInterface{
-        public void onRemoveListener(Integer arg1,Integer arg2);
-    }
-
     DialogInterface dialogInterface;
     Context myContext;
 
@@ -34,12 +29,11 @@ public class removeLoanDialog extends DialogFragment {
         dialogInterface = (DialogInterface) context;
     }
 
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        View view = getActivity().getLayoutInflater().inflate(R.layout.remove_loan_dialog,null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.remove_loan_dialog, null);
         final EditText amountText = (EditText) view.findViewById(R.id.getAmount);
         final EditText editText = (EditText) view.findViewById(R.id.getId);
 
@@ -53,16 +47,16 @@ public class removeLoanDialog extends DialogFragment {
             public void onClick(android.content.DialogInterface dialog, int which) {
 
 
-                if(editText.getText().toString().trim().isEmpty())
-                    Toast.makeText(myContext,"ENTER ID",Toast.LENGTH_SHORT).show();
-                else{
-                    if(amountText.getText().toString().trim().isEmpty())
-                        Toast.makeText(myContext,"ENTER AMOUNT",Toast.LENGTH_SHORT).show();
-                    else{
+                if (editText.getText().toString().trim().isEmpty())
+                    Toast.makeText(myContext, "ENTER ID", Toast.LENGTH_SHORT).show();
+                else {
+                    if (amountText.getText().toString().trim().isEmpty())
+                        Toast.makeText(myContext, "ENTER AMOUNT", Toast.LENGTH_SHORT).show();
+                    else {
                         Integer eid = Integer.valueOf(editText.getText().toString().trim());
                         Integer loan = Integer.valueOf(amountText.getText().toString().trim());
 
-                        dialogInterface.onRemoveListener(eid,loan);
+                        dialogInterface.onRemoveListener(eid, loan);
                     }
 
                 }
@@ -75,7 +69,11 @@ public class removeLoanDialog extends DialogFragment {
         });
 
 
-
         return builder.create();
+    }
+
+
+    public interface DialogInterface {
+        public void onRemoveListener(Integer arg1, Integer arg2);
     }
 }

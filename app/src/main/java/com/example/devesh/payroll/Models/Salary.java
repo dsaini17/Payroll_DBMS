@@ -1,7 +1,5 @@
 package com.example.devesh.payroll.Models;
 
-import java.util.Date;
-
 /**
  * Created by devesh on 2/4/17.
  */

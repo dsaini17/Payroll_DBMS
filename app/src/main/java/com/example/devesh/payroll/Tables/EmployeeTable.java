@@ -11,7 +11,7 @@ public class EmployeeTable extends BasicTable {
 
     public static final String TABLE_NAME = "EMPLOYEE_TABLE";
 
-    public static final String TABLE_CREATE_CMD = "CREATE TABLE IF NOT EXISTS "+ TABLE_NAME
+    public static final String TABLE_CREATE_CMD = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME
             + LBR
             + Columns.ID + TYPE_INT_PK + COMMA
             + Columns.NAME + TYPE_TEXT + NOT_NULL + COMMA
@@ -20,7 +20,7 @@ public class EmployeeTable extends BasicTable {
             + Columns.EMAIL + TYPE_TEXT
             + RBR + ";";
 
-    public interface Columns{
+    public interface Columns {
         String ID = "Employee_ID";
         String NAME = "Employee_Name";
         String ADDRESS = "Address";

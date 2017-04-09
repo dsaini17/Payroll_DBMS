@@ -21,22 +21,22 @@ public class MyDatabase extends SQLiteOpenHelper {
     public static final int DB_VERSION = 1;
     static MyDatabase myDatabase = null;
 
-    public static SQLiteDatabase getReadable(Context context){
-        if (myDatabase==null){
+    public MyDatabase(Context context) {
+        super(context, DB_NAME, null, DB_VERSION);
+    }
+
+    public static SQLiteDatabase getReadable(Context context) {
+        if (myDatabase == null) {
             myDatabase = new MyDatabase(context);
         }
         return myDatabase.getReadableDatabase();
     }
 
-    public static SQLiteDatabase getWritable(Context context){
-        if (myDatabase==null){
+    public static SQLiteDatabase getWritable(Context context) {
+        if (myDatabase == null) {
             myDatabase = new MyDatabase(context);
         }
         return myDatabase.getWritableDatabase();
-    }
-
-    public MyDatabase(Context context) {
-        super(context, DB_NAME, null , DB_VERSION);
     }
 
     @Override

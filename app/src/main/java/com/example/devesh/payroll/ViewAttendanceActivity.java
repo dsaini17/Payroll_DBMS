@@ -4,18 +4,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.ContactsContract;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.AttributeSet;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.devesh.payroll.Database.MyDatabase;
 import com.example.devesh.payroll.ExportClass.ExportDatabase;
@@ -25,7 +21,6 @@ import com.example.devesh.payroll.Tables.EmployeeTable;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 public class ViewAttendanceActivity extends AppCompatActivity {
 
@@ -45,7 +40,7 @@ public class ViewAttendanceActivity extends AppCompatActivity {
         fetchData();
     }
 
-    public void init(){
+    public void init() {
         queryList = new ArrayList<>();
         dataList = new ArrayList<>();
         customAdapter = new CustomAdapter(dataList);
@@ -53,23 +48,23 @@ public class ViewAttendanceActivity extends AppCompatActivity {
         listView.setAdapter(customAdapter);
     }
 
-    public void fetchData(){
+    public void fetchData() {
 
         queryList.clear();
 
         database = MyDatabase.getReadable(getApplicationContext());
 
-        String fetchQuery = " SELECT " + EmployeeTable.Columns.NAME + " , " + AttendanceTable.TABLE_NAME+ ".*"
-                + " FROM " + AttendanceTable.TABLE_NAME +  " JOIN " + EmployeeTable.TABLE_NAME
-                + " ON " + AttendanceTable.TABLE_NAME+"."+AttendanceTable.Columns.EMPLOYEE_ID + " = "
+        String fetchQuery = " SELECT " + EmployeeTable.Columns.NAME + " , " + AttendanceTable.TABLE_NAME + ".*"
+                + " FROM " + AttendanceTable.TABLE_NAME + " JOIN " + EmployeeTable.TABLE_NAME
+                + " ON " + AttendanceTable.TABLE_NAME + "." + AttendanceTable.Columns.EMPLOYEE_ID + " = "
                 + EmployeeTable.TABLE_NAME + "." + EmployeeTable.Columns.ID + " ; ";
 
         Log.d("fetchQuery", fetchQuery);
         queryList.add(fetchQuery);
 
-        Cursor cursor = database.rawQuery(fetchQuery,null);
+        Cursor cursor = database.rawQuery(fetchQuery, null);
 
-        if(cursor!=null&&cursor.moveToFirst()){
+        if (cursor != null && cursor.moveToFirst()) {
             do {
                 Integer id = cursor.getInt(cursor.getColumnIndexOrThrow(AttendanceTable.Columns.EMPLOYEE_ID));
                 String name = cursor.getString(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.NAME));
@@ -77,13 +72,13 @@ public class ViewAttendanceActivity extends AppCompatActivity {
                 Integer t = cursor.getInt(cursor.getColumnIndexOrThrow(AttendanceTable.Columns.WORKING_DAYS));
                 dataList.add(new Attendance(name, id, t, p));
                 customAdapter.notifyDataSetChanged();
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
 
         try {
             askToCreateFile(queryList);
             ExportDatabase.Export();
-         //   Toast.makeText(getApplicationContext(),"Update Performed",Toast.LENGTH_SHORT).show();
+            //   Toast.makeText(getApplicationContext(),"Update Performed",Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -91,7 +86,32 @@ public class ViewAttendanceActivity extends AppCompatActivity {
 
     }
 
-    public class CustomAdapter extends BaseAdapter{
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(ViewAttendanceActivity.this, MainActivity.class));
+        finish();
+    }
+
+    public void askToCreateFile(ArrayList<String> sendData) throws IOException {
+        Integer queryNumber = getPrefs();
+        String fileName = "Query" + String.valueOf(queryNumber) + ".txt";
+        ExportDatabase.createFile(sendData, fileName);
+    }
+
+    public int getPrefs() {
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        Integer oldValue = sharedPreferences.getInt("query", 0);
+        editor.remove("query");
+        editor.putInt("query", oldValue + 1);
+        // Log.d("Prefs", " old = "+oldValue + "new = "+sharedPreferences.getInt("query",-1));
+        editor.apply();
+
+        return oldValue;
+    }
+
+    public class CustomAdapter extends BaseAdapter {
 
         ArrayList<Attendance> myList;
 
@@ -117,9 +137,9 @@ public class ViewAttendanceActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            convertView = getLayoutInflater().inflate(R.layout.view_all_attendance,null);
+            convertView = getLayoutInflater().inflate(R.layout.view_all_attendance, null);
 
-            TextView a,b,c,d;
+            TextView a, b, c, d;
 
             a = (TextView) convertView.findViewById(R.id.id);
             b = (TextView) convertView.findViewById(R.id.name);
@@ -135,30 +155,5 @@ public class ViewAttendanceActivity extends AppCompatActivity {
 
             return convertView;
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        startActivity(new Intent(ViewAttendanceActivity.this,MainActivity.class));
-        finish();
-    }
-
-    public void askToCreateFile(ArrayList<String> sendData) throws IOException {
-        Integer queryNumber = getPrefs();
-        String fileName = "Query"+String.valueOf(queryNumber)+".txt";
-        ExportDatabase.createFile(sendData,fileName);
-    }
-
-    public int getPrefs(){
-        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        Integer oldValue = sharedPreferences.getInt("query",0);
-        editor.remove("query");
-        editor.putInt("query",oldValue+1);
-        // Log.d("Prefs", " old = "+oldValue + "new = "+sharedPreferences.getInt("query",-1));
-        editor.apply();
-
-        return oldValue;
     }
 }

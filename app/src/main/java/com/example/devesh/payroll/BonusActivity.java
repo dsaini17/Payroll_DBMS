@@ -3,11 +3,10 @@ package com.example.devesh.payroll;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Interpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -23,12 +22,12 @@ import java.util.ArrayList;
 
 public class BonusActivity extends AppCompatActivity {
 
-    EditText singleEmployeeID , singleEmployeeValue , percentageValue , legalValue , prValue , hrValue ,
-            logiValue , boardValue , marketingValue , financeValue ;
+    EditText singleEmployeeID, singleEmployeeValue, percentageValue, legalValue, prValue, hrValue,
+            logiValue, boardValue, marketingValue, financeValue;
 
-    Button singleUpdate , percentageUpdate , departmentUpdate ;
+    Button singleUpdate, percentageUpdate, departmentUpdate;
     SQLiteDatabase database;
-    ArrayList<String> queryList,departList;
+    ArrayList<String> queryList, departList;
 
 
     @Override
@@ -44,7 +43,7 @@ public class BonusActivity extends AppCompatActivity {
 
     }
 
-    public void listeners(){
+    public void listeners() {
 
         singleUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +67,7 @@ public class BonusActivity extends AppCompatActivity {
         });
     }
 
-    public void init(){
+    public void init() {
 
         departList = new ArrayList<>();
         queryList = new ArrayList<>();
@@ -91,7 +90,7 @@ public class BonusActivity extends AppCompatActivity {
         departmentUpdate = (Button) findViewById(R.id.departmentUpdateButton);
     }
 
-    public void performSingleUpdate(){
+    public void performSingleUpdate() {
         Integer employee = Integer.valueOf(singleEmployeeID.getText().toString().trim());
         Integer bonus = Integer.valueOf(singleEmployeeValue.getText().toString().trim());
 
@@ -99,8 +98,8 @@ public class BonusActivity extends AppCompatActivity {
 
         database = MyDatabase.getWritable(getApplicationContext());
 
-        String updateBonus = "UPDATE "+ SalaryTable.TABLE_NAME+" SET "+SalaryTable.Columns.BONUS+" = "+SalaryTable.Columns.BONUS +"+"+ bonus
-                + " WHERE "+SalaryTable.Columns.EMPLOYEE_ID+" = "+employee+";";
+        String updateBonus = "UPDATE " + SalaryTable.TABLE_NAME + " SET " + SalaryTable.Columns.BONUS + " = " + SalaryTable.Columns.BONUS + "+" + bonus
+                + " WHERE " + SalaryTable.Columns.EMPLOYEE_ID + " = " + employee + ";";
 
         queryList.add(updateBonus);
         database.execSQL(updateBonus);
@@ -108,7 +107,7 @@ public class BonusActivity extends AppCompatActivity {
         try {
             askToCreateFile(queryList);
             ExportDatabase.Export();
-            Toast.makeText(getApplicationContext(),"Bonus Given",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Bonus Given", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -120,10 +119,9 @@ public class BonusActivity extends AppCompatActivity {
     public void performPercentageUpdate() {
         Integer percentage = Integer.valueOf(percentageValue.getText().toString().trim());
 
-        if(percentage>10){
-            Toast.makeText(getApplicationContext(),"Company Policy , Can't be greater than 10",Toast.LENGTH_LONG).show();
-        }
-        else {
+        if (percentage > 10) {
+            Toast.makeText(getApplicationContext(), "Company Policy , Can't be greater than 10", Toast.LENGTH_LONG).show();
+        } else {
             database = MyDatabase.getWritable(getApplicationContext());
 
             queryList.clear();
@@ -146,55 +144,53 @@ public class BonusActivity extends AppCompatActivity {
 
     }
 
-    public void performDepartmentUpdate(){
+    public void performDepartmentUpdate() {
 
         database = MyDatabase.getWritable(getApplicationContext());
         queryList.clear();
 
-        Integer legalBonus = 0,hrBonus =0, prBonus = 0,marketingBonus =0, logiBonus = 0,boardBonus = 0,
+        Integer legalBonus = 0, hrBonus = 0, prBonus = 0, marketingBonus = 0, logiBonus = 0, boardBonus = 0,
                 financeBonus = 0;
 
-        if(!legalValue.getText().toString().isEmpty())
+        if (!legalValue.getText().toString().isEmpty())
             legalBonus = Integer.valueOf(legalValue.getText().toString().trim());
-        if(!hrValue.getText().toString().isEmpty())
+        if (!hrValue.getText().toString().isEmpty())
             hrBonus = Integer.valueOf(hrValue.getText().toString().trim());
-        if(!prValue.getText().toString().isEmpty())
+        if (!prValue.getText().toString().isEmpty())
             prBonus = Integer.valueOf(prValue.getText().toString().trim());
-        if(!marketingValue.getText().toString().isEmpty())
+        if (!marketingValue.getText().toString().isEmpty())
             marketingBonus = Integer.valueOf(marketingValue.getText().toString().trim());
-        if(!logiValue.getText().toString().isEmpty())
+        if (!logiValue.getText().toString().isEmpty())
             logiBonus = Integer.valueOf(logiValue.getText().toString().trim());
-        if(!boardValue.getText().toString().isEmpty())
+        if (!boardValue.getText().toString().isEmpty())
             boardBonus = Integer.valueOf(boardValue.getText().toString().trim());
-        if(!financeValue.getText().toString().isEmpty())
+        if (!financeValue.getText().toString().isEmpty())
             financeBonus = Integer.valueOf(financeValue.getText().toString().trim());
 
 
-
-            String legalQuery = "UPDATE " + SalaryTable.TABLE_NAME
-                    +" JOIN " + DepartmentTable.TABLE_NAME + " ON "
-                    + SalaryTable.TABLE_NAME+"."+SalaryTable.Columns.EMPLOYEE_ID + " = "
-                    + DepartmentTable.TABLE_NAME+"."+DepartmentTable.Columns.EMPLOYEE_ID
-                    +" SET " + SalaryTable.TABLE_NAME+"."+SalaryTable.Columns.BONUS + " = "
-                    + SalaryTable.TABLE_NAME+"."+SalaryTable.Columns.BONUS + "+" + legalBonus
-                    + " WHERE "
-                    + DepartmentTable.TABLE_NAME + "." + DepartmentTable.Columns.NAME + " = " + departList.get(0) + ";";
-
-
-            Log.d("legalQuery", legalQuery);
-
-            queryList.add(legalQuery);
-            database.execSQL(legalQuery);
+        String legalQuery = "UPDATE " + SalaryTable.TABLE_NAME
+                + " JOIN " + DepartmentTable.TABLE_NAME + " ON "
+                + SalaryTable.TABLE_NAME + "." + SalaryTable.Columns.EMPLOYEE_ID + " = "
+                + DepartmentTable.TABLE_NAME + "." + DepartmentTable.Columns.EMPLOYEE_ID
+                + " SET " + SalaryTable.TABLE_NAME + "." + SalaryTable.Columns.BONUS + " = "
+                + SalaryTable.TABLE_NAME + "." + SalaryTable.Columns.BONUS + "+" + legalBonus
+                + " WHERE "
+                + DepartmentTable.TABLE_NAME + "." + DepartmentTable.Columns.NAME + " = " + departList.get(0) + ";";
 
 
+        Log.d("legalQuery", legalQuery);
 
-            try {
-                askToCreateFile(queryList);
-                ExportDatabase.Export();
-                Toast.makeText(getApplicationContext(), "Bonus Given", Toast.LENGTH_SHORT).show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        queryList.add(legalQuery);
+        database.execSQL(legalQuery);
+
+
+        try {
+            askToCreateFile(queryList);
+            ExportDatabase.Export();
+            Toast.makeText(getApplicationContext(), "Bonus Given", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         legalValue.setText("");
@@ -209,17 +205,17 @@ public class BonusActivity extends AppCompatActivity {
 
     public void askToCreateFile(ArrayList<String> sendData) throws IOException {
         Integer queryNumber = getPrefs();
-        String fileName = "Query"+String.valueOf(queryNumber)+".txt";
-        ExportDatabase.createFile(sendData,fileName);
+        String fileName = "Query" + String.valueOf(queryNumber) + ".txt";
+        ExportDatabase.createFile(sendData, fileName);
     }
 
-    public int getPrefs(){
+    public int getPrefs() {
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        Integer oldValue = sharedPreferences.getInt("query",0);
+        Integer oldValue = sharedPreferences.getInt("query", 0);
         editor.remove("query");
-        editor.putInt("query",oldValue+1);
+        editor.putInt("query", oldValue + 1);
         // Log.d("Prefs", " old = "+oldValue + "new = "+sharedPreferences.getInt("query",-1));
         editor.apply();
 
@@ -228,7 +224,7 @@ public class BonusActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(BonusActivity.this,MainActivity.class));
+        startActivity(new Intent(BonusActivity.this, MainActivity.class));
         finish();
     }
 }

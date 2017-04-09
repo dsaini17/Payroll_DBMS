@@ -1,6 +1,5 @@
 package com.example.devesh.payroll.Dialogs;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -18,7 +17,7 @@ import com.example.devesh.payroll.R;
  * Created by devesh on 2/4/17.
  */
 
-public class developerDialog extends DialogFragment{
+public class developerDialog extends DialogFragment {
 
     Context myCcontext;
 
@@ -33,9 +32,9 @@ public class developerDialog extends DialogFragment{
     public android.app.Dialog onCreateDialog(Bundle savedInstanceState) {
 
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        View convertView = layoutInflater.inflate(R.layout.developer_dialog,null);
+        View convertView = layoutInflater.inflate(R.layout.developer_dialog, null);
 
-        final TextView getcode  = (TextView) convertView.findViewById(R.id.githubCode);
+        final TextView getcode = (TextView) convertView.findViewById(R.id.githubCode);
 
         getcode.setOnClickListener(new View.OnClickListener() {
             @Override

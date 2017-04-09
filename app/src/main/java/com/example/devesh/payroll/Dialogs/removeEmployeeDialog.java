@@ -20,11 +20,6 @@ import com.example.devesh.payroll.R;
 public class removeEmployeeDialog extends DialogFragment {
 
     Context myContext;
-
-    public interface removeEmployeeListener{
-        public void OnRemoveEmployee(Integer id);
-    }
-
     removeEmployeeListener removeEmployeeListener;
 
     @Override
@@ -38,7 +33,7 @@ public class removeEmployeeDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        View view = getActivity().getLayoutInflater().inflate(R.layout.remove_emloyee_dialog,null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.remove_emloyee_dialog, null);
         final EditText eid = (EditText) view.findViewById(R.id.employeeID);
         AlertDialog.Builder builder = new AlertDialog.Builder(myContext);
         builder.setView(view);
@@ -49,9 +44,9 @@ public class removeEmployeeDialog extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 String get = eid.getText().toString().trim();
 
-                if(get.isEmpty())
-                    Toast.makeText(myContext,"EMPLOYEE ID EMPTY",Toast.LENGTH_SHORT).show();
-                else{
+                if (get.isEmpty())
+                    Toast.makeText(myContext, "EMPLOYEE ID EMPTY", Toast.LENGTH_SHORT).show();
+                else {
                     Integer sendData = Integer.valueOf(get);
                     removeEmployeeListener.OnRemoveEmployee(sendData);
                 }
@@ -64,5 +59,9 @@ public class removeEmployeeDialog extends DialogFragment {
         });
 
         return builder.create();
+    }
+
+    public interface removeEmployeeListener {
+        public void OnRemoveEmployee(Integer id);
     }
 }

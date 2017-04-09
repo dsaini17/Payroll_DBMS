@@ -2,10 +2,8 @@ package com.example.devesh.payroll;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.EditText;
+import android.os.Handler;
 
 public class SplashActivity extends Activity {
 
@@ -19,9 +17,9 @@ public class SplashActivity extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this,PasswordActivity.class));
+                startActivity(new Intent(SplashActivity.this, PasswordActivity.class));
             }
-        },SPLASH_LENGTH);
+        }, SPLASH_LENGTH);
 
     }
 }

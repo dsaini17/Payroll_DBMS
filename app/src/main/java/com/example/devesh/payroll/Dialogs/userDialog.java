@@ -4,10 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringDef;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -32,8 +30,8 @@ public class userDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         Bundle args = getArguments();
-        TextView a,b,c,d,e,f;
-        View view = getActivity().getLayoutInflater().inflate(R.layout.all_user_data,null);
+        TextView a, b, c, d, e, f;
+        View view = getActivity().getLayoutInflater().inflate(R.layout.all_user_data, null);
 
         a = (TextView) view.findViewById(R.id.Address);
         b = (TextView) view.findViewById(R.id.Email);
@@ -44,11 +42,11 @@ public class userDialog extends DialogFragment {
 
         a.setText(args.getString("address"));
         b.setText(args.getString("email"));
-        c.setText(args.getString("contact")+"  (Contact)");
+        c.setText(args.getString("contact") + "  (Contact)");
         d.setText(args.getString("department"));
 
-        e.setText((String.valueOf(args.getInt("salary")))+"  (Salary)");
-        f.setText((String.valueOf(args.getFloat("tax")))+"  (Provident Fund)");
+        e.setText((String.valueOf(args.getInt("salary"))) + "  (Salary)");
+        f.setText((String.valueOf(args.getFloat("tax"))) + "  (Provident Fund)");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view).setCancelable(true);

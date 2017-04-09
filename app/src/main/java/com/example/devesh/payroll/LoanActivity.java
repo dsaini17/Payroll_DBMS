@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +18,6 @@ import com.example.devesh.payroll.ExportClass.ExportDatabase;
 import com.example.devesh.payroll.Models.Loan;
 import com.example.devesh.payroll.Tables.EmployeeTable;
 import com.example.devesh.payroll.Tables.LoanTable;
-import com.example.devesh.payroll.Tables.SalaryTable;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,40 +48,40 @@ public class LoanActivity extends AppCompatActivity {
 
     }
 
-    public void addData(){
+    public void addData() {
 
         queryList.clear();
 
         database = MyDatabase.getReadable(getApplicationContext());
 
-        String requestData = "SELECT "+ LoanTable.TABLE_NAME+".* , "+ EmployeeTable.TABLE_NAME+"."+EmployeeTable.Columns.NAME
+        String requestData = "SELECT " + LoanTable.TABLE_NAME + ".* , " + EmployeeTable.TABLE_NAME + "." + EmployeeTable.Columns.NAME
                 + " FROM " + LoanTable.TABLE_NAME + " , " + EmployeeTable.TABLE_NAME
-                + " WHERE " + LoanTable.TABLE_NAME+"."+LoanTable.Columns.EMPLOYEE_ID + " = "
+                + " WHERE " + LoanTable.TABLE_NAME + "." + LoanTable.Columns.EMPLOYEE_ID + " = "
                 + EmployeeTable.TABLE_NAME + "." + EmployeeTable.Columns.ID + " ; ";
 
-        Log.d("request",requestData);
+        Log.d("request", requestData);
 
         queryList.add(requestData);
 
-        Cursor cursor = database.rawQuery(requestData,null);
+        Cursor cursor = database.rawQuery(requestData, null);
 
         String[] strings = cursor.getColumnNames();
 
-        for(int i=0 ; i<strings.length ; i++){
-            Log.d("coulums",strings[i]);
+        for (int i = 0; i < strings.length; i++) {
+            Log.d("coulums", strings[i]);
         }
 
-        if(cursor.getCount()!=0){
-            if(cursor!=null&&cursor.moveToFirst()){
-                do{
+        if (cursor.getCount() != 0) {
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
                     String name = cursor.getString(cursor.getColumnIndexOrThrow(EmployeeTable.Columns.NAME));
                     Integer id = cursor.getInt(cursor.getColumnIndexOrThrow(LoanTable.Columns.EMPLOYEE_ID));
                     Integer amount = cursor.getInt(cursor.getColumnIndexOrThrow(LoanTable.Columns.PRINCIPAL));
                     Float rate = cursor.getFloat(cursor.getColumnIndexOrThrow(LoanTable.Columns.INTEREST));
 
-                    dataList.add(new Loan(id,amount,name,rate));
+                    dataList.add(new Loan(id, amount, name, rate));
                     customAdapter.notifyDataSetChanged();
-                }while (cursor.moveToNext());
+                } while (cursor.moveToNext());
             }
         }
 
@@ -97,17 +96,17 @@ public class LoanActivity extends AppCompatActivity {
 
     public void askToCreateFile(ArrayList<String> sendData) throws IOException {
         Integer queryNumber = getPrefs();
-        String fileName = "Query"+String.valueOf(queryNumber)+".txt";
-        ExportDatabase.createFile(sendData,fileName);
+        String fileName = "Query" + String.valueOf(queryNumber) + ".txt";
+        ExportDatabase.createFile(sendData, fileName);
     }
 
-    public int getPrefs(){
+    public int getPrefs() {
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        Integer oldValue = sharedPreferences.getInt("query",0);
+        Integer oldValue = sharedPreferences.getInt("query", 0);
         editor.remove("query");
-        editor.putInt("query",oldValue+1);
+        editor.putInt("query", oldValue + 1);
         // Log.d("Prefs", " old = "+oldValue + "new = "+sharedPreferences.getInt("query",-1));
         editor.apply();
 
@@ -115,7 +114,13 @@ public class LoanActivity extends AppCompatActivity {
         return oldValue;
     }
 
-    public class CustomAdapter extends BaseAdapter{
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(LoanActivity.this, MainActivity.class));
+        finish();
+    }
+
+    public class CustomAdapter extends BaseAdapter {
 
         ArrayList<Loan> myList;
 
@@ -141,9 +146,9 @@ public class LoanActivity extends AppCompatActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
 
-            convertView = getLayoutInflater().inflate(R.layout.view_all_loan_item,null);
+            convertView = getLayoutInflater().inflate(R.layout.view_all_loan_item, null);
 
-            final TextView a,b,c;
+            final TextView a, b, c;
 
             a = (TextView) convertView.findViewById(R.id.viewLoanID);
             b = (TextView) convertView.findViewById(R.id.viewLoanName);
@@ -157,12 +162,6 @@ public class LoanActivity extends AppCompatActivity {
 
             return convertView;
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        startActivity(new Intent(LoanActivity.this,MainActivity.class));
-        finish();
     }
 }
 

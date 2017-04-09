@@ -18,11 +18,7 @@ import com.example.devesh.payroll.R;
 public class attendanceDialog extends DialogFragment {
 
 
-    public interface attendanceListener{
-        public void onSelectDepartment(Integer index);
-    }
     Context myContext;
-
     attendanceListener listener;
 
     @Override
@@ -40,11 +36,15 @@ public class attendanceDialog extends DialogFragment {
         builder.setTitle("SELECT DEPARTMENT").setItems(R.array.department_array, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Log.d("attendanceFragment",which+"");
+                Log.d("attendanceFragment", which + "");
                 listener.onSelectDepartment(which);
             }
         }).setCancelable(true);
 
         return builder.create();
+    }
+
+    public interface attendanceListener {
+        public void onSelectDepartment(Integer index);
     }
 }

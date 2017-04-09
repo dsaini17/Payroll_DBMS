@@ -1,6 +1,5 @@
 package com.example.devesh.payroll.Dialogs;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -20,15 +19,11 @@ import com.example.devesh.payroll.R;
 
 public class passwordDialog extends DialogFragment {
 
-    public interface DialogListener{
-        public void Positive_Click(Bundle args);
-    }
-
     public static final String TAG = "DialogFragment";
     Context myContext;
     DialogListener dialogListener;
-    EditText oldPassword , newPassword ;
-    String oldString , newString ;
+    EditText oldPassword, newPassword;
+    String oldString, newString;
 
     @Override
     public void onAttach(Context context) {
@@ -41,11 +36,11 @@ public class passwordDialog extends DialogFragment {
     @Override
     public android.app.Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        Log.v(TAG,myContext+"");
+        Log.v(TAG, myContext + "");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(myContext);
         LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        View myView = layoutInflater.inflate(R.layout.password_change_layout,null);
+        View myView = layoutInflater.inflate(R.layout.password_change_layout, null);
         builder.setView(myView);
 
         oldPassword = (EditText) myView.findViewById(R.id.oldPassword);
@@ -59,10 +54,10 @@ public class passwordDialog extends DialogFragment {
                 oldString = oldPassword.getText().toString().trim();
                 newString = newPassword.getText().toString().trim();
 
-                if(dialogListener!=null){
+                if (dialogListener != null) {
                     Bundle args = new Bundle();
-                    args.putString("oldPassword",oldString);
-                    args.putString("newPassword",newString);
+                    args.putString("oldPassword", oldString);
+                    args.putString("newPassword", newString);
                     dialogListener.Positive_Click(args);
                 }
             }
@@ -75,5 +70,9 @@ public class passwordDialog extends DialogFragment {
         });
         return builder.create();
 
+    }
+
+    public interface DialogListener {
+        public void Positive_Click(Bundle args);
     }
 }
