@@ -331,6 +331,7 @@ public class MainActivity extends AppCompatActivity implements giveLoanDialog.Di
             String removeEmployee = "DELETE FROM " + EmployeeTable.TABLE_NAME + " WHERE " +
                     EmployeeTable.Columns.ID + " = " + id + " ; ";
 
+            Log.d("removeQuery",removeEmployee);
             queryList.add(removeEmployee);
             currDatabase.execSQL(removeEmployee);
 
@@ -338,24 +339,28 @@ public class MainActivity extends AppCompatActivity implements giveLoanDialog.Di
             String removeDepartment = "DELETE FROM " + DepartmentTable.TABLE_NAME + " WHERE " +
                     DepartmentTable.Columns.EMPLOYEE_ID + " = " + id + " ; ";
 
+            Log.d("removeQuery",removeDepartment);
             queryList.add(removeDepartment);
             currDatabase.execSQL(removeDepartment);
 
             String removeLoan = "DELETE FROM " + LoanTable.TABLE_NAME + " WHERE " +
                     LoanTable.Columns.EMPLOYEE_ID + " = " + id + " ; ";
 
+            Log.d("removeQuery",removeLoan);
             queryList.add(removeLoan);
             currDatabase.execSQL(removeLoan);
 
             String removeSalary = "DELETE FROM " + SalaryTable.TABLE_NAME + " WHERE " +
                     SalaryTable.Columns.EMPLOYEE_ID + " = " + id + " ; ";
 
+            Log.d("removeQuery",removeSalary);
             queryList.add(removeSalary);
             currDatabase.execSQL(removeSalary);
 
             String removeAttendance = "DELETE FROM " + AttendanceTable.TABLE_NAME + " WHERE " +
                     AttendanceTable.Columns.EMPLOYEE_ID + " = " + id + " ; ";
 
+            Log.d("removeQuery",removeAttendance);
             queryList.add(removeAttendance);
             currDatabase.execSQL(removeAttendance);
 
@@ -378,6 +383,7 @@ public class MainActivity extends AppCompatActivity implements giveLoanDialog.Di
                 String removeTax = "DELETE FROM " + TaxTable.TABLE_NAME + " WHERE " +
                         TaxTable.Columns.EMPLOYEE_ID + " = " + id + " ; ";
 
+                Log.d("removeQuery",removeTax);
                 queryList.add(removeTax);
                 currDatabase.execSQL(removeTax);
 

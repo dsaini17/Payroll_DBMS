@@ -169,12 +169,14 @@ public class DispatchSalaryActivity extends AppCompatActivity {
                 + AttendanceTable.Columns.PRESENT + " = 0 , "
                 + AttendanceTable.Columns.WORKING_DAYS + " = 0 ;";
 
+        Log.d(TAG,updateAttendance);
         queryList.add(updateAttendance);
         database.execSQL(updateAttendance);
 
         String updateBonus = "UPDATE " + SalaryTable.TABLE_NAME + " SET "
                 + SalaryTable.Columns.BONUS + " = 0 ;";
 
+        Log.d(TAG,updateBonus);
         queryList.add(updateBonus);
         database.execSQL(updateBonus);
 
